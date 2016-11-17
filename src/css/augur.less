@@ -1,0 +1,208 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+
+a, a:hover {
+  text-decoration: none;
+}
+ 
+
+body {
+  font-family: 'Raleway', sans-serif;
+  background-color: #111;
+  // background-image: url('/img/footer_lodyas.png')
+}
+#main {
+  padding-top: 0;
+}
+
+header {
+  // height: 30px;
+  height: 3rem;
+  border-bottom: 2px solid #333;
+}
+
+.topnav-container {
+  width: 100%;
+  color: #33ccff;
+}
+
+.topnav {
+  text-align: right;
+  list-style: none;
+
+  li {
+    display: inline-block;
+    margin-right: 1.5rem;
+    margin-bottom: 0;
+    margin-top: 0.3rem;
+  }
+}
+
+
+
+
+.futureView {
+  position: relative;
+}
+
+.futureView canvas {
+  background-color: #000;
+  margin: 0 auto;
+  display: block;
+  z-index: 1;
+
+  height: 30rem;
+}
+
+.futureView #prophecy {
+  position: absolute;
+  left: 20%;
+  right: 20%;
+
+  font-size: 4rem;
+  line-height: 4.5rem;
+  color: #fff;
+  z-index: 100;
+  height: 30rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+
+.futureView #prophecy.blurry {
+   color: transparent;
+   text-shadow: 0 0 8px rgba(255,255,255,0.9);
+}
+
+.centered {
+  text-align: center;
+}
+
+.base {
+  border-top: 2px solid #333;
+  padding-top: 5px;
+}
+
+
+.button-ask {
+  font-size: 1.3rem;
+}
+
+.button-fortune {
+  font-size: 1.1rem;
+}
+
+.disabled {
+  cursor: not-allowed;
+  opacity: 0.3;
+}
+
+.interface {
+  padding-top: 1rem;
+}
+
+.askText {
+  width: 25%;
+  margin-right: 0.5rem;
+}
+
+
+
+.shareLink {
+  float: left;
+  color: #888;
+  opacity: 0.7;
+  font-size: 1.1rem;
+  margin: 0.7rem 0 0 1.5rem;
+}
+
+.sharePrompt {
+  color: #ccc;
+  opacity: 1;
+}
+
+
+
+
+
+
+
+
+
+
+.login {
+  margin-top: 4rem;
+}
+
+
+
+.twitter-login {
+  font-size: 1.5rem;
+  padding: 0 2.5rem 0 1rem;
+}
+
+.icon-twitter:before {
+  padding-right: 1rem;
+  margin-right: 2rem;
+  border-right: 1px solid #eee;
+}
+
+.socialnav ul, 
+.mininav ul {
+  margin: 0;
+}
+
+
+.socialnav {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  color: #fff;
+}
+
+
+
+.mininav {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  color: #fff;
+}
+
+
+.nav-items {
+  list-style: none;
+
+  li {
+    display: inline-block;
+    margin-right: 1.5rem;
+    margin-bottom: 0;
+  }
+
+  [class^="icon-"] {
+    opacity: 0.3;
+  }
+  
+  [class^="icon-"].lit {
+    opacity: 1;
+  }      
+}
+
+
+
+
+// Not all icons have hover states when muted. Explicitly list them.
+.icon-volume-off { cursor: pointer}
+
+// All icons have hover when lit
+.lit:before {
+  cursor: pointer;
+}
+
+
+
+
+
+
