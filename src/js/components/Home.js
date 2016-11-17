@@ -133,10 +133,10 @@ class Home extends React.Component {
 
     if (this.state.audioOn) {
       this.speakTheWord()      
-    } else {
-      this.setClick(true)
-      this.enableUI()      
     }
+
+    this.setClick(true)
+    this.enableUI()      
   }
 
 
@@ -186,7 +186,7 @@ class Home extends React.Component {
     }, function() {
       if (this.state.audioOn) {
         this.speakTheWord()      
-      } 
+      }
     })
   }
   processFortune(data) {
@@ -248,15 +248,12 @@ class Home extends React.Component {
       })
     }
 
-    // Not ideal. Occasionally .onend doesn't fire. Does this help?
-    var that = this
-
     if (this.state.audioOn) {
-      that.speakTheWord()      
-    } else {
-      that.setClick(true)
-      that.enableUI()      
-    }
+      this.speakTheWord()      
+    } 
+
+    this.setClick(true)
+    this.enableUI()
   }
 
 
@@ -266,18 +263,16 @@ class Home extends React.Component {
     this.setState({ audioOn: audioOn })
 
     if (audioOn) {
-      this.setClick(false)
-      this.disableUI()     
       this.speakTheWord()
     }
   }
 
   // I am a Queensryche nerd. I can't help myself.
   speakTheWord() {
-    var that = this
+    var synth = window.speechSynthesis;
 
     // Prevent cacophony   
-    if (speechSynthesis.speaking !== true) {
+    if (synth.speaking !== true) {
       var utterance = new SpeechSynthesisUtterance()      
       utterance.lang = 'en-US';
       utterance.volume = 1.0;
@@ -285,12 +280,7 @@ class Home extends React.Component {
       utterance.pitch = 1.0;
 
       utterance.text = this.state.prediction.text;
-      speechSynthesis.speak(utterance);
-
-      utterance.onend = function(e) {
-        that.setClick(true)
-        that.enableUI()        
-      }
+      synth.speak(utterance)
     }
   }
 

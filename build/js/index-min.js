@@ -25183,10 +25183,10 @@
 
 	      if (this.state.audioOn) {
 	        this.speakTheWord();
-	      } else {
-	        this.setClick(true);
-	        this.enableUI();
 	      }
+
+	      this.setClick(true);
+	      this.enableUI();
 	    }
 	  }, {
 	    key: 'sorry',
@@ -25305,15 +25305,12 @@
 	        });
 	      }
 
-	      // Not ideal. Occasionally .onend doesn't fire. Does this help?
-	      var that = this;
-
 	      if (this.state.audioOn) {
-	        that.speakTheWord();
-	      } else {
-	        that.setClick(true);
-	        that.enableUI();
+	        this.speakTheWord();
 	      }
+
+	      this.setClick(true);
+	      this.enableUI();
 	    }
 	  }, {
 	    key: 'toggleAudio',
@@ -25323,8 +25320,6 @@
 	      this.setState({ audioOn: audioOn });
 
 	      if (audioOn) {
-	        this.setClick(false);
-	        this.disableUI();
 	        this.speakTheWord();
 	      }
 	    }
@@ -25333,10 +25328,10 @@
 	  }, {
 	    key: 'speakTheWord',
 	    value: function speakTheWord() {
-	      var that = this;
+	      var synth = window.speechSynthesis;
 
 	      // Prevent cacophony  
-	      if (speechSynthesis.speaking !== true) {
+	      if (synth.speaking !== true) {
 	        var utterance = new SpeechSynthesisUtterance();
 	        utterance.lang = 'en-US';
 	        utterance.volume = 1.0;
@@ -25344,12 +25339,7 @@
 	        utterance.pitch = 1.0;
 
 	        utterance.text = this.state.prediction.text;
-	        speechSynthesis.speak(utterance);
-
-	        utterance.onend = function (e) {
-	          that.setClick(true);
-	          that.enableUI();
-	        };
+	        synth.speak(utterance);
 	      }
 	    }
 	  }, {
@@ -25770,8 +25760,6 @@
 	        var inputData = this.askInput.value;
 	        if (inputData.length < 3) {
 	          this.props.overrideProphecy(this.emptyChiding());
-	          this.props.setClick(false);
-	          this.props.disableUI();
 	          return;
 	        }
 	      } else {

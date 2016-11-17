@@ -45,8 +45,6 @@ class UserInterface extends React.Component {
       var inputData = this.askInput.value
       if (inputData.length < 3) {
         this.props.overrideProphecy(this.emptyChiding())
-        this.props.setClick(false)
-        this.props.disableUI()        
         return
       }
     } else {
