@@ -13,8 +13,6 @@ var Session     = require('../models/session');
 
 
 app.post('/showTweet', function(req, res) {
-  console.log('Show Tweet Reached!!')
-
   var t = new Twit({
     consumer_key:           configAuth.twitterAuth.consumerKey,
     consumer_secret:        configAuth.twitterAuth.consumerSecret,
@@ -22,7 +20,6 @@ app.post('/showTweet', function(req, res) {
     access_token_secret:    req.user.twitter.tokenSecret,
     app_only_auth:          false
   }) 
-
 
   t.get(`statuses/show/${req.query.id}`, {
     id: req.query.id,
@@ -40,10 +37,10 @@ app.post('/showTweet', function(req, res) {
 
 })
 
+
 app.post('/fortune', function(req, res) {  
   var responseType = req.query.type,
       inputData = req.query.inputData
-
 
   var t = new Twit({
     consumer_key:           configAuth.twitterAuth.consumerKey,
@@ -80,10 +77,6 @@ app.post('/fortune', function(req, res) {
     var randomNum = Math.floor(Math.random() * phrasesArray.length);
     return phrasesArray[randomNum];
   }
-
-
-
-
 
 
   // ===========================
@@ -129,24 +122,14 @@ app.post('/fortune', function(req, res) {
         // Loop through all returned statues
         for (var i = 0; i < data.statuses.length; i++) {
 
-
-
           var originalTweet = data.statuses[i].text,
               tweet         = data.statuses[i].text
 
+          var ellipsisRegex = /(\.\.\.)[\ ]+$/
 
-
-
-
-
-
-          // Does the tweet contain offensive words?
-          if (!wordfilter.blacklisted(tweet)) {
-
-            // console.log("1: " + tweet)
-            tweet = tweetClean(tweet)
-            // console.log("2: " + tweet)
-            // console.log('\n')
+          // Check that tweet does not contain blacklisted word, and also does not end with an ellipsis.
+          if ((!wordfilter.blacklisted(tweet)) && 
+              (ellipsisRegex.test(tweet) === false)) {
 
             var startPos = tweet.indexOf(cutPhrase)
 
@@ -157,23 +140,16 @@ app.post('/fortune', function(req, res) {
                 hasHashtag    = tweet.indexOf('#'),
                 hasLink       = tweet.indexOf('http'),
                 hasAmp        = tweet.indexOf('&')
-// console.log(tweet)
 
             // Find our phrase, and go forward from there.
             var prefix = tweet.slice(0, startPos).toLowerCase()
             var suffix = tweet.slice(startPos).toLowerCase()
-
-// console.log("prefix: " + prefix)
-// console.log("tweet: " + tweet)
-// console.log('\n')
-
 
             // We've cleaned tweet extremes (start/end), but skip if user/hash/url exists within.
             if ((hasReply == -1) && (hasHashtag == -1) && (hasLink == -1) && (hasAmp == -1)) {
 
               var allowFirstPerson = false
               var firstPersonWordsArray = ['i', 'im', 'ive', 'ill', 'id', 'ida', 'my', 'me', 'mine']
-
 
               // Determine if we are responding to a question. Are we responding in the voice of the Internet? Allow first person?
               if (responseType === "question") {
@@ -318,9 +294,6 @@ app.post('/fortune', function(req, res) {
   }
 
 
-
-
-
   fin = function(botData, cb) {
     // console.log(botData)
     cb(null, botData)
@@ -358,7 +331,7 @@ app.post('/fortune', function(req, res) {
                 .replace(/[?.,-\/#!$%\^&\*;:{}=\-_`~()]/g,"")
                 .toLowerCase()
 
-    var ignoreArray = ['did', 'had', 'has', 'are']
+    var ignoreArray = ['did', 'had', 'has', 'are', 'that']
     var messageArray = message.split(' ')
     messageArray = _.difference(messageArray, ignoreArray)
 
@@ -414,14 +387,13 @@ app.post('/fortune', function(req, res) {
     }
 
     if (cutPhrase === '') {
-      var maxSearchTerms = 4 
+      var maxSearchTerms = 5 
     } else {
-      var maxSearchTerms = 5
+      var maxSearchTerms = 4
     }
 
     for (var i = 0; i < messageTags.length; i++) {
-      console.log(messageTags[i])
-      console.log(messageArray[i])
+      console.log(messageTags[i] + ": " + messageArray[i])
 
       if (messageTags[i].length >= 2) { 
         if ((messageTags[i].indexOf('n') !== -1) ||     // Noun
