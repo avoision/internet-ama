@@ -94,7 +94,7 @@ app.post('/fortune', function(req, res) {
     console.log("responseType: " + responseType)
     console.log("Phrase: " + phrase); 
     console.log("cutPhrase: " + cutPhrase)
-    // responseType = fortune, reply
+    // responseType = fortune, question
 
     // If this is a search for a fortune, set the cutPhrase
     if (responseType === 'fortune') {
@@ -110,6 +110,7 @@ app.post('/fortune', function(req, res) {
 
     t.get('search/tweets', {
       q: '\"' + phrase + '\"', 
+      // q: '\"in%20the%20future%20you%20can%20keep%20it\"',
       count: 100, 
       result_type: resultTypePreference, 
       include_entities: false,
@@ -162,34 +163,47 @@ app.post('/fortune', function(req, res) {
             var prefix = tweet.slice(0, startPos).toLowerCase()
             var suffix = tweet.slice(startPos).toLowerCase()
 
-console.log("prefix: " + prefix)
-console.log("tweet: " + tweet)
-console.log('\n')
+// console.log("prefix: " + prefix)
+// console.log("tweet: " + tweet)
+// console.log('\n')
 
 
-            // Does the tweet have a reply, hashtag, or URL?
+            // We've cleaned tweet extremes (start/end), but skip if user/hash/url exists within.
             if ((hasReply == -1) && (hasHashtag == -1) && (hasLink == -1) && (hasAmp == -1)) {
 
-              prefix = prefix.replace(/['?.,-\/#!$%\^&\*;:{}=\-_`~()]/g,"")
-              suffix = suffix.replace(/['?.,-\/#!$%\^&\*;:{}=\-_`~()]/g,"")
+              var allowFirstPerson = false
+              var firstPersonWordsArray = ['i', 'im', 'ive', 'ill', 'id', 'ida', 'my', 'me', 'mine']
 
-              var prefixArray = prefix.split(' ')
-              var suffixArray = suffix.split(' ')
 
-// Do a check. If first person accepted (Example: "Why are you sad?"), do we still want to exclude first person?
+              // Determine if we are responding to a question. Are we responding in the voice of the Internet? Allow first person?
+              if (responseType === "question") {
+                var submittedPhraseArray = phrase
+                                              .replace(/['\"]*/g, "")
+                                              .split('%20')
+                
+                var firstPersonRefs = _.intersection(submittedPhraseArray, firstPersonWordsArray)
 
-              var rejectionCriteriaArray = ['i', 'im', 'ive', 'ill', 'id', 'ida', 'my', 'me', 'mine', 'lmao', 'lmfao', 'omg', 'omfg', 'smh', 'smdh', ' lol'];
+                if (firstPersonRefs.length > 0) {
+                  allowFirstPerson = true
+                }
+              }
 
+              // Check suffix content
               var shouldReject = false
 
-              for (var j = 0; j < suffixArray.length; j++) {
-                for (var k = 0; k < rejectionCriteriaArray.length; k++) {
-                  if (suffixArray[j] === rejectionCriteriaArray[k]) {
-                    shouldReject = true
-                    break
-                  }
+              if (allowFirstPerson === false) {
+                // Replce punctuation with a space
+                suffix = suffix.replace(/[!?.,-]+/g," ")
+                // Remove special characters outright
+                suffix = suffix.replace(/['\/#$%\^&\*;:{}=\-_`~()]*/g,"")
+                // Split
+                var suffixArray = suffix.split(' ')
+
+                var suffixRefs = _.intersection(suffixArray, firstPersonWordsArray)
+
+                if (suffixRefs.length > 0) {
+                  shouldReject = true
                 }
-                if (shouldReject) { break }
               }
 
               if (shouldReject) {
@@ -208,14 +222,17 @@ console.log('\n')
                     canUseFull = true
 
                 // Check prefix content
-                for (var l = 0; l < prefixArray.length; l++) {
-                  for (var m = 0; m < rejectionCriteriaArray.length; m++) {
-                    if (prefixArray[l] === rejectionCriteriaArray[m]) {
-                      canUseFull = false
-                      break
-                    }
-                  }
-                  if (canUseFull === false) { break }
+                // Replce punctuation with a space
+                prefix = prefix.replace(/[!?.,-]+/g," ")
+                // Remove special characters outright
+                prefix = prefix.replace(/['\/#$%\^&\*;:{}=\-_`~()]*/g,"")
+                // Split
+                var prefixArray = prefix.split(' ')
+
+                var prefixRefs = _.intersection(prefixArray, firstPersonWordsArray)
+
+                if (prefixRefs.length > 0) {
+                  canUseFull = false
                 }
 
                 // console.log('tweetObj: ' + tweetObj)
@@ -493,7 +510,6 @@ console.log('\n')
 
 
   tweetClean = function(tweet) {
-
     // Removes RT/MT from beginning
     tweet = _.replace(tweet, /^(rt|mt|oh)[:\ ]*/i, "")
    
@@ -515,10 +531,11 @@ console.log('\n')
     // Removes URL from end
     tweet = _.replace(tweet, /https?:\/\/[-a-zA-Z0-9:%_\+.~#?&\/\/=]*$/i, "")
 
+    // Remove annoying abbreviations
+    tweet = _.replace(tweet, /(lmao|lmfao|omg|omfg|smh|smdh|lol|rofl)*/gi, "")
+
     return tweet
   }
-
-
 }
 
 
