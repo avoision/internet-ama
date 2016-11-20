@@ -11,8 +11,6 @@ var configAuth  = require('../config/auth');
 var User        = require('../models/user');
 var Session     = require('../models/session');
 
-console.log("twitter.js Loaded")
-
 
 app.post('/showTweet', function(req, res) {
   console.log('Show Tweet Reached!!')
@@ -32,6 +30,8 @@ app.post('/showTweet', function(req, res) {
     }, function(err, data, response) {
 
     if (!err) {
+      // Intercept data and scrub it. 
+      data.text = tweetClean(data.text)
       res.json(data);
     } else {
       console.log(err)
@@ -82,12 +82,18 @@ app.post('/fortune', function(req, res) {
   }
 
 
+
+
+
+
   // ===========================
   // Async Twitter
   // ===========================
   getPublicTweets = function(originalMessage, phrase, responseType, cutPhrase, cb) {
     console.log("========= Get Public Tweets =========");
-    // console.log(phrase); 
+    console.log("responseType: " + responseType)
+    console.log("Phrase: " + phrase); 
+    console.log("cutPhrase: " + cutPhrase)
     // responseType = fortune, reply
 
     // If this is a search for a fortune, set the cutPhrase
@@ -122,43 +128,63 @@ app.post('/fortune', function(req, res) {
         // Loop through all returned statues
         for (var i = 0; i < data.statuses.length; i++) {
 
-          var tweet       = data.statuses[i].text.toLowerCase(),
-              hasReply    = tweet.indexOf('@'), 
-              hasHashtag  = tweet.indexOf('#'),
-              hasLink     = tweet.indexOf('http'),
-              hasAmp      = tweet.indexOf('&')
 
-          var startPos = tweet.indexOf(cutPhrase)
 
-          // Punctuation (commas) may result in -1
-          if (startPos < 0) { startPos = 0 }
+          var originalTweet = data.statuses[i].text,
+              tweet         = data.statuses[i].text
+
+
+
+
+
+
 
           // Does the tweet contain offensive words?
           if (!wordfilter.blacklisted(tweet)) {
 
+            // console.log("1: " + tweet)
+            tweet = tweetClean(tweet)
+            // console.log("2: " + tweet)
+            // console.log('\n')
+
+            var startPos = tweet.indexOf(cutPhrase)
+
+            // Punctuation (commas) may result in -1
+            if (startPos < 0) { startPos = 0 }
+
+            var hasReply      = tweet.indexOf('@'), 
+                hasHashtag    = tweet.indexOf('#'),
+                hasLink       = tweet.indexOf('http'),
+                hasAmp        = tweet.indexOf('&')
 // console.log(tweet)
 
             // Find our phrase, and go forward from there.
-            var preTweet = tweet
-            tweet = tweet.slice(startPos);
+            var prefix = tweet.slice(0, startPos).toLowerCase()
+            var suffix = tweet.slice(startPos).toLowerCase()
+
+console.log("prefix: " + prefix)
+console.log("tweet: " + tweet)
+console.log('\n')
 
 
             // Does the tweet have a reply, hashtag, or URL?
             if ((hasReply == -1) && (hasHashtag == -1) && (hasLink == -1) && (hasAmp == -1)) {
 
-              preTweet = preTweet.replace(/[?.,-\/#!$%\^&\*;:{}=\-_`~()]/g,"")
-              tweet = tweet.replace(/[?.,-\/#!$%\^&\*;:{}=\-_`~()]/g,"")
+              prefix = prefix.replace(/['?.,-\/#!$%\^&\*;:{}=\-_`~()]/g,"")
+              suffix = suffix.replace(/['?.,-\/#!$%\^&\*;:{}=\-_`~()]/g,"")
 
-              var preTweetArray = preTweet.split(' ')
-              var tweetArray = tweet.split(' ')
+              var prefixArray = prefix.split(' ')
+              var suffixArray = suffix.split(' ')
+
+// Do a check. If first person accepted (Example: "Why are you sad?"), do we still want to exclude first person?
 
               var rejectionCriteriaArray = ['i', 'im', 'ive', 'ill', 'id', 'ida', 'my', 'me', 'mine', 'lmao', 'lmfao', 'omg', 'omfg', 'smh', 'smdh', ' lol'];
 
               var shouldReject = false
 
-              for (var j = 0; j < tweetArray.length; j++) {
+              for (var j = 0; j < suffixArray.length; j++) {
                 for (var k = 0; k < rejectionCriteriaArray.length; k++) {
-                  if (tweetArray[j] === rejectionCriteriaArray[k]) {
+                  if (suffixArray[j] === rejectionCriteriaArray[k]) {
                     shouldReject = true
                     break
                   }
@@ -176,14 +202,15 @@ app.post('/fortune', function(req, res) {
                     authorURL = `https://twitter.com/${screen_name}`,
                     tweetID = tweetObj.id_str,
                     tweetURL = `${authorURL}/status/${tweetID}`,
-                    tweetText = tweetObj.text,
+                    tweetOriginal = tweetObj.text,
+                    tweetText = tweet,
                     cutPhrasePos = startPos,
                     canUseFull = true
 
-                // Check pretweet content
-                for (var l = 0; l < preTweetArray.length; l++) {
+                // Check prefix content
+                for (var l = 0; l < prefixArray.length; l++) {
                   for (var m = 0; m < rejectionCriteriaArray.length; m++) {
-                    if (preTweetArray[l] === rejectionCriteriaArray[m]) {
+                    if (prefixArray[l] === rejectionCriteriaArray[m]) {
                       canUseFull = false
                       break
                     }
@@ -210,6 +237,7 @@ app.post('/fortune', function(req, res) {
                   authorURL: authorURL,
                   tweetID: tweetID,
                   tweetURL: tweetURL,
+                  tweetOriginal: tweetOriginal,
                   tweetText: tweetText,
                   cutPhrasePos: cutPhrasePos,
                   canUseFull: canUseFull          
@@ -339,7 +367,7 @@ app.post('/fortune', function(req, res) {
         searchTerms.push('shouldn\'t')
         cutPhrase = 'shouldn\'t'
       }
-    }else if (message.indexOf('you ') !== -1) {
+    } else if (message.indexOf('you ') !== -1) {
       var firstPersonArray = [
         '\"i%20will\"',
         '\"i%20may\"',
@@ -446,21 +474,52 @@ app.post('/fortune', function(req, res) {
   checkType(responseType, inputData)
 
   })
-}
 
+  // ===========================
+  // Utility Functions
+  // ===========================
+  // Event X has a 30% chance of happening.
+  // randomCheck(30) = true/false
+  randomCheck = function(percentChance, limit) {
+    limit = limit || 100
 
-// ===========================
-// Utility Functions
-// ===========================
-// Event X has a 30% chance of happening.
-// randomCheck(30) = true/false
-randomCheck = function(percentChance, limit) {
-  limit = limit || 100
-
-  var randomNum = Math.floor(Math.random() * limit);
-  if ((percentChance - randomNum) >= 0) {
-    return true     
-  } else {
-    return false
+    var randomNum = Math.floor(Math.random() * limit);
+    if ((percentChance - randomNum) >= 0) {
+      return true     
+    } else {
+      return false
+    }
   }
+
+
+  tweetClean = function(tweet) {
+
+    // Removes RT/MT from beginning
+    tweet = _.replace(tweet, /^(rt|mt|oh)[:\ ]*/i, "")
+   
+    // Removes one or more @users from beginning
+    tweet = _.replace(tweet, /^(@[A-Za-z_]+[A-Za-z0-9_]+[:\ ]*)+/gi, "")
+
+    // Removes one or more #hashtags from beginning
+    tweet = _.replace(tweet, /^(#[0-9A-Za-z_]+[A-Za-z0-9_'…]+[\ ]*)+/gi, "")
+
+    // Removes one or more @users from end
+    tweet = _.replace(tweet, /([\ ]+@[A-Za-z_]+[A-Za-z0-9_]+[:\ ]*)+$/gi, "")
+
+    // Removes 'via'
+    tweet = _.replace(tweet, /[\ ]*via[\ ]*$/, "")
+
+    // Rmoves one or more #hashtags from end
+    tweet = _.replace(tweet, /(#[0-9A-Za-z_]+[A-Za-z0-9_'…]+[\ ]*)+$/gi, "")
+
+    // Removes URL from end
+    tweet = _.replace(tweet, /https?:\/\/[-a-zA-Z0-9:%_\+.~#?&\/\/=]*$/i, "")
+
+    return tweet
+  }
+
+
 }
+
+
+

@@ -35,9 +35,6 @@ class Home extends React.Component {
     }    
   }
 
-
-
-
   componentDidMount() {
     if (this.props.pathname === "/share") {
       // http://127.0.0.1:3000/share?id=797630177425510401&f=1&c=15&a=1
@@ -212,7 +209,9 @@ class Home extends React.Component {
           cutPhrasePos = randomPost.cutPhrasePos,
           text
 
-      // console.log(randomPost)
+console.log(randomPost.tweetOriginal)
+console.log(randomPost.tweetText)
+console.log('\n')
 
       // Can we use the full tweet, unaltered?
       if (randomPost.canUseFull) {
