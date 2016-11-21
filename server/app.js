@@ -16,10 +16,10 @@ var session 			= require('express-session')
 var MongoStore    = require('connect-mongo')(session);
 
 // var methodOverride = require('method-override');
-var configDB = require('./config/database.js');
+// var configDB = require('./config/database.js');
 
 // configuration ===============================================================
-mongoose.connect(configDB.url); // connect to our database
+mongoose.connect(process.env.MONGO_URL); // connect to our database
 
 require('./config/passport')(passport); // pass passport for configuration
 

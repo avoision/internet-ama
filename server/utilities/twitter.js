@@ -6,7 +6,7 @@ var Twit        = require('twit')
 var rita        = require('rita');
 var wordfilter  = require('wordfilter')
 
-var configAuth  = require('../config/auth');
+// var configAuth  = require('../config/auth');
 
 var User        = require('../models/user');
 var Session     = require('../models/session');
@@ -14,8 +14,8 @@ var Session     = require('../models/session');
 
 app.post('/showTweet', function(req, res) {
   var t = new Twit({
-    consumer_key:           configAuth.twitterAuth.consumerKey,
-    consumer_secret:        configAuth.twitterAuth.consumerSecret,
+    consumer_key:           process.env.THE_INTERNET_CONSUMER_KEY,
+    consumer_secret:        process.env.THE_INTERNET_CONSUMER_SECRET,
     access_token:           req.user.twitter.token,
     access_token_secret:    req.user.twitter.tokenSecret,
     app_only_auth:          false
@@ -43,8 +43,8 @@ app.post('/fortune', function(req, res) {
       inputData = req.query.inputData
 
   var t = new Twit({
-    consumer_key:           configAuth.twitterAuth.consumerKey,
-    consumer_secret:        configAuth.twitterAuth.consumerSecret,
+    consumer_key:           process.env.THE_INTERNET_CONSUMER_KEY,
+    consumer_secret:        process.env.THE_INTERNET_CONSUMER_SECRET,
     access_token:           req.user.twitter.token,
     access_token_secret:    req.user.twitter.tokenSecret,
     app_only_auth:          false
