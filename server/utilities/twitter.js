@@ -103,7 +103,6 @@ app.post('/fortune', function(req, res) {
 
     t.get('search/tweets', {
       q: '\"' + phrase + '\"', 
-      // q: '\"in%20the%20future%20you%20can%20keep%20it\"',
       count: 100, 
       result_type: resultTypePreference, 
       include_entities: false,
@@ -122,14 +121,28 @@ app.post('/fortune', function(req, res) {
         // Loop through all returned statues
         for (var i = 0; i < data.statuses.length; i++) {
 
-          var originalTweet = data.statuses[i].text,
-              tweet         = data.statuses[i].text
+          var originalTweet, 
+              tweet,
+              isRetweet = false
 
-          var ellipsisRegex = /(\.\.\.)[\ ]+$/
+          // If this is a RT, pull data from different location
+          if (data.statuses[i].hasOwnProperty('retweeted_status')) {
+            isRetweet     = true
+            // If RT is truncated, set tweet to empty so we can skip it.
+            if (data.statuses[i].retweeted_status.truncated) {
+              originalTweet = ''
+              tweet = ''
+            } else {
+              originalTweet = data.statuses[i].retweeted_status.text
+              tweet         = data.statuses[i].retweeted_status.text
+            }
+          } else {
+            originalTweet = data.statuses[i].text
+            tweet         = data.statuses[i].text
+          }
 
-          // Check that tweet does not contain blacklisted word, and also does not end with an ellipsis.
-          if ((!wordfilter.blacklisted(tweet)) && 
-              (ellipsisRegex.test(tweet) === false)) {
+          if ((!wordfilter.blacklisted(tweet)) && (tweet.length > 0)) {
+            tweet = tweetClean(tweet)
 
             var startPos = tweet.indexOf(cutPhrase)
 
@@ -186,8 +199,13 @@ app.post('/fortune', function(req, res) {
                 // Rejected. Do not save.
               } else {
                 // console.log(data.statuses[i])
-                var tweetObj = data.statuses[i],
-                    name = tweetObj.user.name,
+                if (isRetweet) {
+                  var tweetObj = data.statuses[i].retweeted_status
+                } else {
+                  var tweetObj = data.statuses[i]
+                }
+
+                var name = tweetObj.user.name,
                     screen_name = tweetObj.user.screen_name,
                     authorURL = `https://twitter.com/${screen_name}`,
                     tweetID = tweetObj.id_str,
@@ -214,7 +232,6 @@ app.post('/fortune', function(req, res) {
                 // console.log('tweetObj: ' + tweetObj)
                 // console.log('name: ' + name)
                 // console.log('screen_name: ' + screen_name)
-                // console.log('url: ' + url)
                 // console.log('tweetID: ' + tweetID)
                 // console.log('tweetURL: ' + tweetURL)
                 // console.log('cutPhrasePos: ' + cutPhrasePos)
@@ -242,10 +259,8 @@ app.post('/fortune', function(req, res) {
         }
 
         if (botData.allPosts.length > 0 ) {
-          // Remove duplicates
-          // Refactor this, since we are keeping all data
-          // botData.allPosts = _.uniq(botData.allPosts)
-
+          // Remove duplicates       
+          botData.allPosts = _.uniqBy(botData.allPosts, 'tweetID')
           cb(null, botData)
         } else {
           // [ Insert Coin ]
