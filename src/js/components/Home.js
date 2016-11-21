@@ -3,6 +3,7 @@ import TopNav from './TopNav'
 import FutureView from './FutureView'
 import UserInterface from './UserInterface'
 import Login from './Login'
+import 'whatwg-fetch'
 
 class Home extends React.Component {
   constructor() {
