@@ -3,7 +3,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node ./server/app.js",
-    "dev": "nodemon --watch server ./server/app.js & gulp dev"
+    "dev": "gulp build & heroku local web"
   },
   "dependencies": {
     "express": "^4.0.0",

@@ -6,8 +6,6 @@ var Twit        = require('twit')
 var rita        = require('rita');
 var wordfilter  = require('wordfilter')
 
-// var configAuth  = require('../config/auth');
-
 var User        = require('../models/user');
 var Session     = require('../models/session');
 

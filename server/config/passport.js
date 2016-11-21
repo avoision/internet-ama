@@ -4,9 +4,6 @@ var TwitterStrategy  = require('passport-twitter').Strategy;
 // load up the user model
 var User       = require('../models/user');
 
-// load the auth variables
-// var configAuth = require('./auth');
-
 module.exports = function(passport) {
 
     // used to serialize the user for the session
@@ -29,6 +26,7 @@ module.exports = function(passport) {
     // TWITTER 
     // ===========================
     passport.use(new TwitterStrategy({
+        
         consumerKey     : process.env.THE_INTERNET_CONSUMER_KEY,
         consumerSecret  : process.env.THE_INTERNET_CONSUMER_SECRET,
         callbackURL     : process.env.CALLBACK_URL

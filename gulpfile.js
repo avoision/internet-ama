@@ -44,7 +44,7 @@ gulp.task('watch', function() {
 
 gulp.task('dev', ['webpack-build', 'css-build', 'watch'])
 
-// gulp.task('build', ['webpack-build', 'css-build'])
+gulp.task('build', ['webpack-build', 'css-build'])
 
 gulp.task('default', function() {
   console.log('gulp default')

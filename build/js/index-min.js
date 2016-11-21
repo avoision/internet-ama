@@ -25088,8 +25088,8 @@
 	      prediction: {
 	        authorURL: null,
 	        tweetURL: null,
-	        // text: `I am the Internet, AMA.`
-	        text: 'in uncharted waters i sail, i know my compass will not fail, i watch the wind, the tide, the sail as i leap into the mouth of the she-whale.'
+	        text: 'I am the Internet, AMA.'
+	        // text: 'in uncharted waters i sail, i know my compass will not fail, i watch the wind, the tide, the sail as i leap into the mouth of the she-whale.'
 	      }
 	    };
 	  }

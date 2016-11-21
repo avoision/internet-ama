@@ -15,9 +15,6 @@ var bodyParser 		= require('body-parser')
 var session 			= require('express-session')
 var MongoStore    = require('connect-mongo')(session);
 
-// var methodOverride = require('method-override');
-// var configDB = require('./config/database.js');
-
 // configuration ===============================================================
 mongoose.connect(process.env.MONGO_URL); // connect to our database
 
