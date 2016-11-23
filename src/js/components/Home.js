@@ -114,6 +114,7 @@ class Home extends React.Component {
       text = data.text
     } else {
       text = data.text.slice(sharedParams.cutPhrasePos)
+      text = text.charAt(0).toUpperCase() + text.slice(1)      
     }
 
     var screen_name = data.user.screen_name
