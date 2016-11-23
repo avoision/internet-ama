@@ -227,7 +227,10 @@ console.log('\n')
       prediction.authorURL = randomPost.authorURL
       prediction.tweetURL = randomPost.tweetURL
 
-      shareLinks.url = `${this.baseURL}/share?id=${randomPost.tweetID}&f=${randomPost.canUseFull}&c=${randomPost.cutPhrasePos}&a=${this.state.audioOn}`
+      var canUseFullInt = randomPost.canUseFull ? 1 : 0
+      var audioOnInt = this.state.audioOn ? 1 : 0
+
+      shareLinks.url = `${this.baseURL}/share?id=${randomPost.tweetID}&f=${canUseFullInt}&c=${randomPost.cutPhrasePos}&a=${audioOnInt}`
 
       this.setState({ 
         prediction: prediction,
@@ -261,6 +264,13 @@ console.log('\n')
   toggleAudio() {
     var audioOn = this.state.audioOn
     audioOn = !audioOn
+
+    console.log(this.state)
+
+    var shareLink = this.state.shareLinks.url
+    console.log(shareLink)
+
+
     this.setState({ audioOn: audioOn })
 
     if (audioOn) {

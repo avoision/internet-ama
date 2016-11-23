@@ -3,7 +3,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node ./server/app.js",
-    "dev": "gulp build & heroku local web"
+    "dev": "gulp build & gulp watch & heroku local web"
   },
   "dependencies": {
     "async": "^2.0.0-rc.5",
