@@ -9,7 +9,7 @@ class Home extends React.Component {
   constructor() {
     super();
 
-    this.baseURL = "127.0.0.1:3000"
+    this.baseURL = "127.0.0.1:5000"
 
     this.processFortune = this.processFortune.bind(this)
     this.disableUI = this.disableUI.bind(this)
@@ -266,13 +266,22 @@ console.log('\n')
     var audioOn = this.state.audioOn
     audioOn = !audioOn
 
-    console.log(this.state)
+    var currentLink = this.state.shareLinks.url
+    // 127.0.0.1:3000/share?id=801587642714439682&f=1&c=33&a=1
 
-    var shareLink = this.state.shareLinks.url
-    console.log(shareLink)
+    var audioInteger = currentLink.charAt(currentLink.length-1)
+    var newAudioInteger = parseInt(audioInteger) === 1 ? 0 : 1
 
+    var newURL = currentLink.slice(0, currentLink.length-3)
+    newURL += "a=" + newAudioInteger
 
-    this.setState({ audioOn: audioOn })
+    var shareLinks = this.state.shareLinks
+    shareLinks.url = newURL
+
+    this.setState({ 
+      audioOn: audioOn,
+      shareLinks: shareLinks
+    })
 
     if (audioOn) {
       this.speakTheWord()
