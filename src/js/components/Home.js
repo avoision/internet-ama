@@ -318,12 +318,12 @@ console.log('\n')
     return (
       <div>
         <header>
-          <div className="shareLink"><span className="sharePrompt">Share:</span> {this.state.shareLinks.url}</div>        
           <TopNav />
         </header>
         <FutureView prediction={this.state.prediction} blurry={this.state.blurry} audioOn={this.state.audioOn} toggleAudio={this.toggleAudio} />
 
         <div className="base">
+          <div className="shareLink"><span className="sharePrompt">Share:</span> {this.state.shareLinks.url}</div>
           {userControls} 
         </div>
 

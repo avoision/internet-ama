@@ -25385,6 +25385,12 @@
 	        _react2['default'].createElement(
 	          'header',
 	          null,
+	          _react2['default'].createElement(_TopNav2['default'], null)
+	        ),
+	        _react2['default'].createElement(_FutureView2['default'], { prediction: this.state.prediction, blurry: this.state.blurry, audioOn: this.state.audioOn, toggleAudio: this.toggleAudio }),
+	        _react2['default'].createElement(
+	          'div',
+	          { className: 'base' },
 	          _react2['default'].createElement(
 	            'div',
 	            { className: 'shareLink' },
@@ -25396,12 +25402,6 @@
 	            ' ',
 	            this.state.shareLinks.url
 	          ),
-	          _react2['default'].createElement(_TopNav2['default'], null)
-	        ),
-	        _react2['default'].createElement(_FutureView2['default'], { prediction: this.state.prediction, blurry: this.state.blurry, audioOn: this.state.audioOn, toggleAudio: this.toggleAudio }),
-	        _react2['default'].createElement(
-	          'div',
-	          { className: 'base' },
 	          userControls
 	        )
 	      );
