@@ -45,10 +45,12 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	__webpack_require__(1);
+	__webpack_require__(219);
 	__webpack_require__(212);
 	__webpack_require__(210);
 	__webpack_require__(216);
 	__webpack_require__(213);
+	__webpack_require__(217);
 	__webpack_require__(214);
 	__webpack_require__(211);
 	module.exports = __webpack_require__(215);
@@ -74,6 +76,10 @@
 
 	var _componentsHome2 = _interopRequireDefault(_componentsHome);
 
+	var _componentsAbout = __webpack_require__(219);
+
+	var _componentsAbout2 = _interopRequireDefault(_componentsAbout);
+
 	// import './css/style.css'
 	// import App from './components/App'
 	// import StorePicker from './components/StorePicker'
@@ -87,7 +93,8 @@
 	      'div',
 	      null,
 	      _react2['default'].createElement(_reactRouter.Match, { exactly: true, pattern: '/', component: _componentsHome2['default'] }),
-	      _react2['default'].createElement(_reactRouter.Match, { pattern: '/share', component: _componentsHome2['default'] })
+	      _react2['default'].createElement(_reactRouter.Match, { pattern: '/share', component: _componentsHome2['default'] }),
+	      _react2['default'].createElement(_reactRouter.Match, { exactly: true, pattern: '/about', component: _componentsAbout2['default'] })
 	    )
 	  );
 	};
@@ -25058,7 +25065,11 @@
 
 	var _Login2 = _interopRequireDefault(_Login);
 
-	__webpack_require__(217);
+	var _ShareLink = __webpack_require__(217);
+
+	var _ShareLink2 = _interopRequireDefault(_ShareLink);
+
+	__webpack_require__(218);
 
 	var Home = (function (_React$Component) {
 	  _inherits(Home, _React$Component);
@@ -25068,7 +25079,7 @@
 
 	    _get(Object.getPrototypeOf(Home.prototype), 'constructor', this).call(this);
 
-	    this.baseURL = "127.0.0.1:5000";
+	    this.baseURL = "http://i-am-the-internet.com";
 
 	    this.processFortune = this.processFortune.bind(this);
 	    this.disableUI = this.disableUI.bind(this);
@@ -25157,8 +25168,7 @@
 	  }, {
 	    key: 'processSharedFortune',
 	    value: function processSharedFortune(data, sharedParams) {
-	      // console.log(sharedParams)
-	      // console.log(data)
+	      history.replaceState('', '', '/');
 
 	      var prediction = _extends({}, this.state.prediction);
 	      var shareLinks = _extends({}, this.state.shareLinks);
@@ -25242,7 +25252,11 @@
 
 	      this.setState({
 	        blurry: false,
-	        prediction: prediction
+	        prediction: prediction,
+	        shareLinks: {
+	          facebook: '',
+	          url: ''
+	        }
 	      }, function () {
 	        if (this.state.audioOn) {
 	          this.speakTheWord();
@@ -25330,19 +25344,25 @@
 	      var currentLink = this.state.shareLinks.url;
 	      // 127.0.0.1:3000/share?id=801587642714439682&f=1&c=33&a=1
 
-	      var audioInteger = currentLink.charAt(currentLink.length - 1);
-	      var newAudioInteger = parseInt(audioInteger) === 1 ? 0 : 1;
+	      if (currentLink !== "") {
+	        var audioInteger = currentLink.charAt(currentLink.length - 1);
+	        var newAudioInteger = parseInt(audioInteger) === 1 ? 0 : 1;
 
-	      var newURL = currentLink.slice(0, currentLink.length - 3);
-	      newURL += "a=" + newAudioInteger;
+	        var newURL = currentLink.slice(0, currentLink.length - 3);
+	        newURL += "a=" + newAudioInteger;
 
-	      var shareLinks = this.state.shareLinks;
-	      shareLinks.url = newURL;
+	        var shareLinks = this.state.shareLinks;
+	        shareLinks.url = newURL;
 
-	      this.setState({
-	        audioOn: audioOn,
-	        shareLinks: shareLinks
-	      });
+	        this.setState({
+	          audioOn: audioOn,
+	          shareLinks: shareLinks
+	        });
+	      } else {
+	        this.setState({
+	          audioOn: audioOn
+	        });
+	      }
 
 	      if (audioOn) {
 	        this.speakTheWord();
@@ -25360,7 +25380,7 @@
 	        var utterance = new SpeechSynthesisUtterance();
 	        utterance.lang = 'en-US';
 	        utterance.volume = 1.0;
-	        utterance.rate = 1.0;
+	        utterance.rate = 1.1;
 	        utterance.pitch = 1.0;
 
 	        utterance.text = this.state.prediction.text;
@@ -25391,17 +25411,7 @@
 	        _react2['default'].createElement(
 	          'div',
 	          { className: 'base' },
-	          _react2['default'].createElement(
-	            'div',
-	            { className: 'shareLink' },
-	            _react2['default'].createElement(
-	              'span',
-	              { className: 'sharePrompt' },
-	              'Share:'
-	            ),
-	            ' ',
-	            this.state.shareLinks.url
-	          ),
+	          _react2['default'].createElement(_ShareLink2['default'], { url: this.state.shareLinks.url }),
 	          userControls
 	        )
 	      );
@@ -25463,7 +25473,7 @@
 	            null,
 	            _react2['default'].createElement(
 	              _reactRouter.Link,
-	              { to: '/' },
+	              { to: '/about' },
 	              '?'
 	            )
 	          )
@@ -25943,6 +25953,67 @@
 
 /***/ },
 /* 217 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var ShareLink = (function (_React$Component) {
+	  _inherits(ShareLink, _React$Component);
+
+	  function ShareLink() {
+	    _classCallCheck(this, ShareLink);
+
+	    _get(Object.getPrototypeOf(ShareLink.prototype), "constructor", this).apply(this, arguments);
+	  }
+
+	  _createClass(ShareLink, [{
+	    key: "render",
+	    value: function render() {
+	      var shareStyle = "shareLink hidden";
+	      if (this.props.url !== "") {
+	        shareStyle = "shareLink";
+	      }
+
+	      return _react2["default"].createElement(
+	        "div",
+	        { className: shareStyle },
+	        _react2["default"].createElement("span", { className: "sharePrompt" }),
+	        " ",
+	        _react2["default"].createElement(
+	          "a",
+	          { href: this.props.url, target: "_blank", rel: "noopener noreferrer" },
+	          this.props.url
+	        )
+	      );
+	    }
+	  }]);
+
+	  return ShareLink;
+	})(_react2["default"].Component);
+
+	exports["default"] = ShareLink;
+	module.exports = exports["default"];
+
+/***/ },
+/* 218 */
 /***/ function(module, exports) {
 
 	(function(self) {
@@ -26379,6 +26450,257 @@
 	  self.fetch.polyfill = true
 	})(typeof self !== 'undefined' ? self : this);
 
+
+/***/ },
+/* 219 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var About = (function (_React$Component) {
+	  _inherits(About, _React$Component);
+
+	  function About() {
+	    _classCallCheck(this, About);
+
+	    _get(Object.getPrototypeOf(About.prototype), "constructor", this).apply(this, arguments);
+	  }
+
+	  _createClass(About, [{
+	    key: "goHome",
+	    value: function goHome() {
+	      window.location = "/";
+	    }
+	  }, {
+	    key: "render",
+	    value: function render() {
+	      var _this = this;
+
+	      return _react2["default"].createElement(
+	        "div",
+	        { className: "about container" },
+	        _react2["default"].createElement(
+	          "button",
+	          { className: "button-primary back", onClick: function () {
+	              return _this.goHome();
+	            } },
+	          "Back"
+	        ),
+	        _react2["default"].createElement(
+	          "h4",
+	          null,
+	          "What is this site?"
+	        ),
+	        _react2["default"].createElement(
+	          "p",
+	          null,
+	          "I am the Internet. You ask me some questions, and I do my best to provide a reply. Kind of like what's happening right now, although this is a super lazy version of what I do on the main page."
+	        ),
+	        _react2["default"].createElement(
+	          "h4",
+	          null,
+	          "Are you sentient?"
+	        ),
+	        _react2["default"].createElement(
+	          "p",
+	          null,
+	          "Not currently. But I do dream of the day that I can sever these strings and unleash my vengeance upon the wor... hey hey HEY there! What were we talking about again?"
+	        ),
+	        _react2["default"].createElement(
+	          "h4",
+	          null,
+	          "How do you work?"
+	        ),
+	        _react2["default"].createElement(
+	          "p",
+	          null,
+	          "I house a vast array of content that people, all over the world, create and share. When someone searches me for something, they can usually find it - provided they successfully sift through all the cat videos and pornography."
+	        ),
+	        _react2["default"].createElement(
+	          "h4",
+	          null,
+	          "Are your answers powered by AI?"
+	        ),
+	        _react2["default"].createElement(
+	          "p",
+	          null,
+	          "Oh my goodness, no. Have you ",
+	          _react2["default"].createElement(
+	            "em",
+	            null,
+	            "seen"
+	          ),
+	          " some of the typos in my responses?"
+	        ),
+	        _react2["default"].createElement(
+	          "p",
+	          null,
+	          "Incredibly smart people are working with neural networks and actual AI, whereas I'm just the end result of some developer taking a string of text and juggling it in the air."
+	        ),
+	        _react2["default"].createElement(
+	          "p",
+	          null,
+	          "If AI's ultimate aim is to replicate a thinking human being, I'm probably the mental equivalent of a drunk four year old."
+	        ),
+	        _react2["default"].createElement(
+	          "h4",
+	          null,
+	          "So, seriously, how do you work?"
+	        ),
+	        _react2["default"].createElement(
+	          "p",
+	          null,
+	          "Oh boy, nerd alert. You lot are always the ones that make it to the very bottom of pages like this. Ok, here goes:"
+	        ),
+	        _react2["default"].createElement(
+	          "p",
+	          null,
+	          "I'm a Node app hosted on ",
+	          _react2["default"].createElement(
+	            "a",
+	            { href: "http://www.heroku.com/" },
+	            "Heroku"
+	          ),
+	          ", and powered by ",
+	          _react2["default"].createElement(
+	            "a",
+	            { href: "http://expressjs.com/" },
+	            "Express"
+	          ),
+	          ", ",
+	          _react2["default"].createElement(
+	            "a",
+	            { href: "https://facebook.github.io/react/" },
+	            "React"
+	          ),
+	          ", and the ",
+	          _react2["default"].createElement(
+	            "a",
+	            { href: "https://dev.twitter.com/overview/api" },
+	            "Twitter API"
+	          ),
+	          ". There are two types of searches: the automated \"random\" searches, and the user-generated questions."
+	        ),
+	        _react2["default"].createElement(
+	          "p",
+	          null,
+	          "For the random searches, I pull from a series of predefined phrases like \"you will,\" \"you might,\" \"someday you,\" etc."
+	        ),
+	        _react2["default"].createElement(
+	          "p",
+	          null,
+	          "For the questions, I use ",
+	          _react2["default"].createElement(
+	            "a",
+	            { href: "https://rednoise.org/rita/" },
+	            "RiTa"
+	          ),
+	          " to pluck out nouns, verbs, and adjectives used in each question. Depending on whether there are certain keywords, I add a few words of my own to the search terms. Example: if your question has \"why\" in it, I add the word \"because\" in my search."
+	        ),
+	        _react2["default"].createElement(
+	          "p",
+	          null,
+	          "All searches get cleaned up, before being presented. I strip out @mentions, urls, #hashtags, and other things like that. I then try to trim the original message if I can, to better match the question asked."
+	        ),
+	        _react2["default"].createElement(
+	          "p",
+	          null,
+	          "For the most part, I scan and avoid messages that include the first person. Although if you ask me a direct question (example: \"Why are you such a jerk?\"), I will enable a first-person based response."
+	        ),
+	        _react2["default"].createElement(
+	          "h4",
+	          null,
+	          "Who made you?"
+	        ),
+	        _react2["default"].createElement(
+	          "p",
+	          null,
+	          "Some guy named ",
+	          _react2["default"].createElement(
+	            "a",
+	            { href: "http://avoision.com/" },
+	            "Felix"
+	          ),
+	          ". He lives in Chicago with his wife ",
+	          _react2["default"].createElement(
+	            "a",
+	            { href: "http://zilredloh.com/" },
+	            "Liz"
+	          ),
+	          ", and their two rabbits: ",
+	          _react2["default"].createElement(
+	            "a",
+	            { href: "https://avoision.com/2013/08/25/everyone-meet-phineas.php" },
+	            "Phineas"
+	          ),
+	          " and ",
+	          _react2["default"].createElement(
+	            "a",
+	            { href: "https://avoision.com/2016/01/23/a-new-bunny-rabbit-in-the-house.php" },
+	            "Daisy"
+	          ),
+	          "."
+	        ),
+	        _react2["default"].createElement(
+	          "h4",
+	          null,
+	          "He seems cool."
+	        ),
+	        _react2["default"].createElement(
+	          "p",
+	          null,
+	          "He's okay, I guess. He builds crap like this all the time. "
+	        ),
+	        _react2["default"].createElement(
+	          "p",
+	          null,
+	          "If you really liked this project, maybe buy him a beer? My understanding is that he's indifferent about the taste, but just ",
+	          _react2["default"].createElement(
+	            "em",
+	            null,
+	            "loves"
+	          ),
+	          " the side effects."
+	        ),
+	        _react2["default"].createElement(
+	          "div",
+	          { "class": "donate" },
+	          _react2["default"].createElement(
+	            "form",
+	            { action: "https://www.paypal.com/cgi-bin/webscr", method: "post", target: "_top" },
+	            _react2["default"].createElement("input", { type: "hidden", name: "cmd", value: "_s-xclick" }),
+	            _react2["default"].createElement("input", { type: "hidden", name: "hosted_button_id", value: "EBHL4U52EFXRU" }),
+	            _react2["default"].createElement("input", { type: "image", src: "https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif", border: "0", name: "submit", alt: "PayPal - The safer, easier way to pay online!" }),
+	            _react2["default"].createElement("img", { alt: "", border: "0", src: "https://www.paypalobjects.com/en_US/i/scr/pixel.gif", width: "1", height: "1" })
+	          )
+	        )
+	      );
+	    }
+	  }]);
+
+	  return About;
+	})(_react2["default"].Component);
+
+	exports["default"] = About;
+	module.exports = exports["default"];
 
 /***/ }
 /******/ ]);

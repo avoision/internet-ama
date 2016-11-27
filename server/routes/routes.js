@@ -1,7 +1,7 @@
 module.exports = function(app, passport) {
 
 	// route for home page
-	app.get(['/', '/share'], function(req, res) {
+	app.get(['/', '/share', '/about'], function(req, res) {
 		// var uid = req.session.id
 		
 		var authStatus

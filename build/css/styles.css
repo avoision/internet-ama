@@ -1013,7 +1013,7 @@ header {
   opacity: 0.3;
 }
 .interface {
-  padding-top: 2rem;
+  padding-top: 1rem;
 }
 .askText {
   max-width: 425px;
@@ -1036,11 +1036,27 @@ header {
   }
 }
 .shareLink {
-  color: #888;
-  opacity: 0.7;
+  text-align: center;
+  margin: 0.7rem auto;
+  color: #777;
+  opacity: 0.5;
   font-size: 1.1rem;
-  margin: 0.7rem 0 0 1.5rem;
-  display: inline-block;
+}
+.shareLink a:hover {
+  text-decoration: underline;
+}
+@media (min-width: 550px) {
+  .shareLink {
+    font-size: 1.4rem;
+  }
+}
+.sharePrompt:before {
+  content: '';
+}
+@media (min-width: 420px) {
+  .sharePrompt:before {
+    content: 'Share: ';
+  }
 }
 .sharePrompt {
   color: #ccc;
@@ -1110,4 +1126,21 @@ header {
 }
 .lit:before {
   cursor: pointer;
+}
+.about {
+  margin-top: 1rem;
+  color: #eee;
+}
+.about a,
+.about a:hover {
+  text-decoration: underline;
+}
+.about h4 {
+  color: #00C2FF;
+}
+.hidden {
+  opacity: 0;
+}
+.back {
+  float: right;
 }

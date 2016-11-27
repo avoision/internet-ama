@@ -9,15 +9,15 @@ var livereload = require('gulp-livereload');
 var paths = {
   js: './src/js/**/*.js',
   css: './src/css/**/*.css',
-  less: './src/css/'
+  less: './src/css/**/*.less'
 }
 
 gulp.task('css-build', function () {
   return gulp.src([
-    paths.less + 'normalize.css',
-    paths.less + 'skeleton.css',
-    paths.less + 'fonts.less',
-    paths.less + 'augur.less'    
+    './src/css/' + 'normalize.css',
+    './src/css/' + 'skeleton.css',
+    './src/css/' + 'fonts.less',
+    './src/css/' + 'augur.less'    
   ])
     .pipe(concat('styles.less'))
     .pipe(less())

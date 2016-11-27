@@ -8,7 +8,7 @@ class TopNav extends React.Component {
     return (
       <div className="topnav-container">
         <ul className="topnav">
-          <li><Link to="/">?</Link></li>
+          <li><Link to="/about">?</Link></li>
         </ul>
       </div>
     )

@@ -355,8 +355,10 @@ app.post('/fortune', function(req, res) {
         cutPhrase = ''
 
     if (message.indexOf('why') !== -1) {
-      searchTerms.push('because')
-      cutPhrase = 'because'
+      if (randomCheck(70)) {      
+        searchTerms.push('because')
+        cutPhrase = 'because'
+      }
     }
 
     if (message.indexOf('how ') !== -1) {

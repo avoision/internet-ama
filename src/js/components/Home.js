@@ -3,13 +3,14 @@ import TopNav from './TopNav'
 import FutureView from './FutureView'
 import UserInterface from './UserInterface'
 import Login from './Login'
+import ShareLink from './ShareLink'
 import 'whatwg-fetch'
 
 class Home extends React.Component {
   constructor() {
     super();
 
-    this.baseURL = "127.0.0.1:5000"
+    this.baseURL = "http://i-am-the-internet.com"
 
     this.processFortune = this.processFortune.bind(this)
     this.disableUI = this.disableUI.bind(this)
@@ -103,8 +104,7 @@ class Home extends React.Component {
 
 
   processSharedFortune(data, sharedParams) {
-    // console.log(sharedParams)
-    // console.log(data)
+    history.replaceState('', '', '/');
 
     var prediction = {...this.state.prediction}
     var shareLinks = {... this.state.shareLinks}
@@ -182,7 +182,11 @@ class Home extends React.Component {
 
     this.setState({
       blurry: false,
-      prediction: prediction
+      prediction: prediction,
+      shareLinks: {
+        facebook: '',
+        url: ''
+      }      
     }, function() {
       if (this.state.audioOn) {
         this.speakTheWord()      
@@ -269,19 +273,27 @@ console.log('\n')
     var currentLink = this.state.shareLinks.url
     // 127.0.0.1:3000/share?id=801587642714439682&f=1&c=33&a=1
 
-    var audioInteger = currentLink.charAt(currentLink.length-1)
-    var newAudioInteger = parseInt(audioInteger) === 1 ? 0 : 1
+    if (currentLink !== "") {
+      var audioInteger = currentLink.charAt(currentLink.length-1)
+      var newAudioInteger = parseInt(audioInteger) === 1 ? 0 : 1
 
-    var newURL = currentLink.slice(0, currentLink.length-3)
-    newURL += "a=" + newAudioInteger
+      var newURL = currentLink.slice(0, currentLink.length-3)
+      newURL += "a=" + newAudioInteger
 
-    var shareLinks = this.state.shareLinks
-    shareLinks.url = newURL
+      var shareLinks = this.state.shareLinks
+      shareLinks.url = newURL   
 
-    this.setState({ 
-      audioOn: audioOn,
-      shareLinks: shareLinks
-    })
+      this.setState({ 
+        audioOn: audioOn,
+        shareLinks: shareLinks
+      })      
+    } else {
+      this.setState({ 
+        audioOn: audioOn
+      })
+    }
+
+
 
     if (audioOn) {
       this.speakTheWord()
@@ -297,7 +309,7 @@ console.log('\n')
       var utterance = new SpeechSynthesisUtterance()      
       utterance.lang = 'en-US';
       utterance.volume = 1.0;
-      utterance.rate = 1.0;
+      utterance.rate = 1.1;
       utterance.pitch = 1.0;
 
       utterance.text = this.state.prediction.text;
@@ -315,6 +327,8 @@ console.log('\n')
       userControls = <Login />
     }
 
+    
+
     return (
       <div>
         <header>
@@ -323,7 +337,7 @@ console.log('\n')
         <FutureView prediction={this.state.prediction} blurry={this.state.blurry} audioOn={this.state.audioOn} toggleAudio={this.toggleAudio} />
 
         <div className="base">
-          <div className="shareLink"><span className="sharePrompt">Share:</span> {this.state.shareLinks.url}</div>
+          <ShareLink url={this.state.shareLinks.url} />
           {userControls} 
         </div>
 
