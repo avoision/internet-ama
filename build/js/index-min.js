@@ -25999,7 +25999,7 @@
 	        " ",
 	        _react2["default"].createElement(
 	          "a",
-	          { href: this.props.url, target: "_blank", rel: "noopener noreferrer" },
+	          { href: 'http://' + this.props.url, target: "_blank", rel: "noopener noreferrer" },
 	          this.props.url
 	        )
 	      );

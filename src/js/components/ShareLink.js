@@ -9,7 +9,7 @@ class ShareLink extends React.Component {
     }
 
     return (
-      <div className={shareStyle}><span className="sharePrompt"></span> <a href={this.props.url} target="_blank" rel="noopener noreferrer">{this.props.url}</a></div>
+      <div className={shareStyle}><span className="sharePrompt"></span> <a href={'http://' + this.props.url} target="_blank" rel="noopener noreferrer">{this.props.url}</a></div>
     )
   }
 }
