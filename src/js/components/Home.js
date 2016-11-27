@@ -10,7 +10,7 @@ class Home extends React.Component {
   constructor() {
     super();
 
-    this.baseURL = "http://i-am-the-internet.com"
+    this.baseURL = "i-am-the-internet.com"
 
     this.processFortune = this.processFortune.bind(this)
     this.disableUI = this.disableUI.bind(this)
@@ -309,7 +309,7 @@ console.log('\n')
       var utterance = new SpeechSynthesisUtterance()      
       utterance.lang = 'en-US';
       utterance.volume = 1.0;
-      utterance.rate = 1.1;
+      utterance.rate = 1.0;
       utterance.pitch = 1.0;
 
       utterance.text = this.state.prediction.text;
