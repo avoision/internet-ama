@@ -47,7 +47,7 @@ app.post('/fortune', function(req, res) {
   })  
   
   // Extend Wordfilter
-  wordfilter.addWords(['nigg', 'n!gg', 'sjw', 'social justice', 'pussies', 'semen', 'rape']);
+  wordfilter.addWords(['nigg', 'n!gg', 'sjw', 'social justice', 'pussies', 'semen', 'rape', 'cum']);
 
   // ===========================
   // Twitter Logic

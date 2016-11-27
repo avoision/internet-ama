@@ -44,7 +44,7 @@ class About extends React.Component {
         <h4>Who made you?</h4>
         <p>Some guy named <a href="http://avoision.com/">Felix</a>. He lives in Chicago with his wife <a href="http://zilredloh.com/">Liz</a>, and their two rabbits: <a href="https://avoision.com/2013/08/25/everyone-meet-phineas.php">Phineas</a> and <a href="https://avoision.com/2016/01/23/a-new-bunny-rabbit-in-the-house.php">Daisy</a>.</p>
 
-        <h4>He seems cool.</h4>
+        <h4>He seems like a cool guy.</h4>
         <p>He's okay, I guess. He builds crap like this all the time. </p>
 
         <p>If you really liked this project, maybe buy him a beer? My understanding is that he's indifferent about the taste, but just <em>loves</em> the side effects.</p>

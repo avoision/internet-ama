@@ -26662,7 +26662,7 @@
 	        _react2["default"].createElement(
 	          "h4",
 	          null,
-	          "He seems cool."
+	          "He seems like a cool guy."
 	        ),
 	        _react2["default"].createElement(
 	          "p",
