@@ -105,7 +105,7 @@ class UserInterface extends React.Component {
     return (
         <div className={disabledStyles} >
           <div className="row centered">
-            <input id="askText" className="askText" onKeyUp={this.submitQuestion} type="text" ref={(input) => { this.askInput = input }} placeholder="Enter your question" />
+            <input id="askText" className="askText" onKeyUp={this.submitQuestion} type="text" ref={(input) => { this.askInput = input }} placeholder="Enter your question..." />
             <button className="button-primary button-ask" onClick={() => this.getFortune('question')}>Ask</button>
           </div>
           <div className="row centered">

@@ -25857,7 +25857,7 @@
 	          { className: 'row centered' },
 	          _react2['default'].createElement('input', { id: 'askText', className: 'askText', onKeyUp: this.submitQuestion, type: 'text', ref: function (input) {
 	              _this.askInput = input;
-	            }, placeholder: 'Enter your question' }),
+	            }, placeholder: 'Enter your question...' }),
 	          _react2['default'].createElement(
 	            'button',
 	            { className: 'button-primary button-ask', onClick: function () {

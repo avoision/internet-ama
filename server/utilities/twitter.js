@@ -65,8 +65,10 @@ app.post('/fortune', function(req, res) {
     'no one knows',
     'no one can',
     'you will find',
-    'you will discover',
-    'in the future you'
+    'you will see',
+    'in the future you',
+    'someone has',
+    'someone will',
   ]
 
   randomPhrase = function() {
@@ -518,6 +520,9 @@ app.post('/fortune', function(req, res) {
 
     // Remove annoying abbreviations
     tweet = _.replace(tweet, /(lmao|lmfao|omg|omfg|smh|smdh|lol|rofl)*/gi, "")
+
+    // Removes numbering: (1/4), 18. 
+    tweet = _.replace(tweet, /(\(?[0-9]+\/[0-9]+\)?)|([0-9]+\.?\ ?)/, "")
 
     return tweet
   }

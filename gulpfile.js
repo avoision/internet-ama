@@ -8,6 +8,7 @@ var livereload = require('gulp-livereload');
 
 var paths = {
   js: './src/js/**/*.js',
+  server: './server/**/*.js',
   css: './src/css/**/*.css',
   less: './src/css/**/*.less'
 }
@@ -53,6 +54,7 @@ return gulp.src(paths.js)
 })
 
 gulp.task('watch', function() {
+  gulp.watch(paths.server, ['webpack-build'])
   gulp.watch(paths.js, ['webpack-build'])
   gulp.watch(paths.css, ['css-build'])
   gulp.watch(paths.less, ['css-build'])  
