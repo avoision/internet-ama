@@ -25474,7 +25474,7 @@
 	            _react2['default'].createElement(
 	              _reactRouter.Link,
 	              { to: '/about' },
-	              '?'
+	              'wth?'
 	            )
 	          )
 	        )
@@ -26682,14 +26682,14 @@
 	        ),
 	        _react2["default"].createElement(
 	          "div",
-	          { "class": "donate" },
+	          null,
 	          _react2["default"].createElement(
 	            "form",
 	            { action: "https://www.paypal.com/cgi-bin/webscr", method: "post", target: "_top" },
 	            _react2["default"].createElement("input", { type: "hidden", name: "cmd", value: "_s-xclick" }),
 	            _react2["default"].createElement("input", { type: "hidden", name: "hosted_button_id", value: "EBHL4U52EFXRU" }),
-	            _react2["default"].createElement("input", { type: "image", src: "https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif", border: "0", name: "submit", alt: "PayPal - The safer, easier way to pay online!" }),
-	            _react2["default"].createElement("img", { alt: "", border: "0", src: "https://www.paypalobjects.com/en_US/i/scr/pixel.gif", width: "1", height: "1" })
+	            _react2["default"].createElement("input", { type: "image", src: "https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif", name: "submit", alt: "PayPal - The safer, easier way to pay online!" }),
+	            _react2["default"].createElement("img", { alt: "", src: "https://www.paypalobjects.com/en_US/i/scr/pixel.gif", width: "1", height: "1" })
 	          )
 	        )
 	      );
