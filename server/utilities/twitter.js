@@ -14,9 +14,7 @@ app.post('/showTweet', function(req, res) {
   var t = new Twit({
     consumer_key:           process.env.THE_INTERNET_CONSUMER_KEY,
     consumer_secret:        process.env.THE_INTERNET_CONSUMER_SECRET,
-    access_token:           req.user.twitter.token,
-    access_token_secret:    req.user.twitter.tokenSecret,
-    app_only_auth:          false
+    app_only_auth:          true
   }) 
 
   t.get(`statuses/show/${req.query.id}`, {
