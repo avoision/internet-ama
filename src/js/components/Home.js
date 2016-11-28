@@ -10,7 +10,7 @@ class Home extends React.Component {
   constructor() {
     super();
 
-    this.baseURL = "i-am-the-internet.com"
+    this.baseURL = "http://www.i-am-the-internet.com"
 
     this.processFortune = this.processFortune.bind(this)
     this.disableUI = this.disableUI.bind(this)

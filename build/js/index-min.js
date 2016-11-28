@@ -25079,7 +25079,7 @@
 
 	    _get(Object.getPrototypeOf(Home.prototype), 'constructor', this).call(this);
 
-	    this.baseURL = "i-am-the-internet.com";
+	    this.baseURL = "http://www.i-am-the-internet.com";
 
 	    this.processFortune = this.processFortune.bind(this);
 	    this.disableUI = this.disableUI.bind(this);
@@ -25955,21 +25955,21 @@
 /* 217 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
+	Object.defineProperty(exports, '__esModule', {
 	  value: true
 	});
 
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var _react = __webpack_require__(2);
 
@@ -25981,36 +25981,60 @@
 	  function ShareLink() {
 	    _classCallCheck(this, ShareLink);
 
-	    _get(Object.getPrototypeOf(ShareLink.prototype), "constructor", this).apply(this, arguments);
+	    _get(Object.getPrototypeOf(ShareLink.prototype), 'constructor', this).apply(this, arguments);
 	  }
 
 	  _createClass(ShareLink, [{
-	    key: "render",
+	    key: 'getTwitterLink',
+	    value: function getTwitterLink() {
+	      var twitterLink = 'https://twitter.com/intent/tweet?url=' + encodeURIComponent(this.props.url);
+
+	      return twitterLink;
+	    }
+	  }, {
+	    key: 'getFacebookLink',
+	    value: function getFacebookLink() {
+	      var facebookLink = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(this.props.url);
+
+	      return facebookLink;
+	    }
+	  }, {
+	    key: 'render',
 	    value: function render() {
 	      var shareStyle = "shareLink hidden";
 	      if (this.props.url !== "") {
 	        shareStyle = "shareLink";
 	      }
 
-	      return _react2["default"].createElement(
-	        "div",
+	      return _react2['default'].createElement(
+	        'div',
 	        { className: shareStyle },
-	        _react2["default"].createElement("span", { className: "sharePrompt" }),
-	        " ",
-	        _react2["default"].createElement(
-	          "a",
-	          { href: 'http://' + this.props.url, target: "_blank", rel: "noopener noreferrer" },
-	          this.props.url
+	        _react2['default'].createElement(
+	          'span',
+	          { className: 'sharePrompt' },
+	          'Share this answer via:'
+	        ),
+	        ' ',
+	        _react2['default'].createElement(
+	          'a',
+	          { href: this.getFacebookLink(), target: '_blank', rel: 'noopener noreferrer' },
+	          'Facebook'
+	        ),
+	        ' or ',
+	        _react2['default'].createElement(
+	          'a',
+	          { href: this.getTwitterLink(), target: '_blank', rel: 'noopener noreferrer' },
+	          'Twitter'
 	        )
 	      );
 	    }
 	  }]);
 
 	  return ShareLink;
-	})(_react2["default"].Component);
+	})(_react2['default'].Component);
 
-	exports["default"] = ShareLink;
-	module.exports = exports["default"];
+	exports['default'] = ShareLink;
+	module.exports = exports['default'];
 
 /***/ },
 /* 218 */
