@@ -16,8 +16,24 @@
         colorMinPos = 0,
         colorPos = randomize(0, colorMaxPos)
 
-    canvas.width = window.innerWidth
-    canvas.height = 300
+    function setWidthHeight() {
+      // console.log('setWidthHeight')
+      canvas.width = window.innerWidth
+
+      if (window.innerHeight > window.innerWidth) {
+       // alert("You are now in portrait");
+        canvas.height = 300
+      } else {
+        // alert("You are now in landscape");
+        canvas.height = 190
+      }
+
+
+    }
+
+
+
+
 
     // Utility
     function randomize(min, max) {
@@ -85,9 +101,14 @@
       window.requestAnimationFrame(smoke)  
     }
 
+
+    var timeout
     window.addEventListener('resize', function() {
-     canvas.width = window.innerWidth
+      clearTimeout(timeout)
+      timeout = setTimeout(setWidthHeight, 200)
     })
+
+    setWidthHeight()
 
     smoke()
   }

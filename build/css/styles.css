@@ -953,7 +953,6 @@ header {
   margin: 0 auto;
   display: block;
   z-index: 1;
-  height: 30rem;
 }
 .futureView #prophecy {
   position: absolute;
@@ -1048,6 +1047,9 @@ header {
 .sharePrompt {
   color: #ccc;
   opacity: 1;
+}
+.login {
+  margin-top: 0.8em;
 }
 .twitter-login {
   font-size: 1.5rem;
