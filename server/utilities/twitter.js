@@ -96,11 +96,12 @@ app.post('/fortune', function(req, res) {
     if ((coinToss%4) != 0) {
         var resultTypePreference = 'recent'
     } else {
-        var resultTypePreference = 'popular'
+        var resultTypePreference = 'mixed'
     }
 
     t.get('search/tweets', {
-      q: '\"' + phrase + '\"', 
+      // q: '\"' + phrase + '\"', 
+      q: phrase,
       count: 100, 
       result_type: resultTypePreference, 
       include_entities: false,

@@ -1049,9 +1049,6 @@ header {
   color: #ccc;
   opacity: 1;
 }
-.login {
-  margin-top: 4rem;
-}
 .twitter-login {
   font-size: 1.5rem;
   padding: 0 2.5rem 0 1rem;
@@ -1126,7 +1123,7 @@ header {
   color: #00C2FF;
 }
 .hidden {
-  opacity: 0;
+  display: none;
 }
 .back {
   float: right;
