@@ -16,23 +16,22 @@
         colorMinPos = 0,
         colorPos = randomize(0, colorMaxPos)
 
-    console.log("window.innerWidth: " + window.innerWidth)
-    canvas.width = window.innerWidth
-
 
     function setWidthHeight() {
       // console.log('setWidthHeight')
+      console.log(window.innerWidth)
       canvas.width = window.innerWidth
+      var cHeight = 300
 
-      // if (window.innerHeight > window.innerWidth) {
-      //  // alert("You are now in portrait");
-      //   canvas.height = 300
-      // } else {
-      //   // alert("You are now in landscape");
-      //   canvas.height = 190
-      // }
-
-
+      if (window.innerHeight > window.innerWidth) {
+       // alert("You are now in portrait");
+      } else {
+        // alert("You are now in landscape");
+        if (window.innerWidth <= 667) {
+          cHeight = 200
+        }
+      }
+      canvas.height = cHeight
     }
 
 
@@ -69,7 +68,7 @@
 
       this.x = Math.random() * canvas.width
       this.y = Math.random() * canvas.height
-     
+
       this.radius = 1
       this.alpha = 1
     }
@@ -112,7 +111,7 @@
       timeout = setTimeout(setWidthHeight, 200)
     })
 
-    // setWidthHeight()
+    setWidthHeight()
 
     smoke()
   }

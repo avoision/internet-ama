@@ -61,19 +61,21 @@ header {
   margin: 0 auto;
   display: block;
   z-index: 1;
-  height: 30rem; 
   max-width: 100%;
 
-  @media only screen
-      and (orientation: landscape) 
-      and (max-device-width: 667px)
-      and (-webkit-min-device-pixel-ratio: 2) {
-    height: 20rem;
-  }
+  // Setting this in animate.js
+  // height: 30rem; 
 
-  @media (orientation: portrait) {
-    height: 30rem; 
-  }
+  // @media only screen
+  //     and (orientation: landscape) 
+  //     and (max-device-width: 667px)
+  //     and (-webkit-min-device-pixel-ratio: 2) {
+  //   height: 20rem;
+  // }
+
+  // @media (orientation: portrait) {
+  //   height: 30rem; 
+  // }
 }
 
 .futureView #prophecy {
@@ -103,14 +105,18 @@ header {
     height: 30rem; 
   }
 
-  @media (min-width: 400px)  {
+  @media (min-width: 400px)
+    and (orientation: landscape) 
+    {
     left: 5%;
     right: 5%;    
     font-size: 3rem;
     line-height: 3.6rem;
   }
 
-  @media (min-width: 550px) {
+  @media (min-width: 550px) 
+    and (orientation: landscape) 
+  {
     left: 10%;
     right: 10%;       
     font-size: 3rem;
@@ -118,7 +124,8 @@ header {
   }
 
 
-  @media (min-width: 750px) {
+  @media (min-width: 750px)
+      and (orientation: landscape)  {
     font-size: 4rem;
     line-height: 4.5rem;      
   }

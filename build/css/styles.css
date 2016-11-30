@@ -964,18 +964,7 @@ header {
   margin: 0 auto;
   display: block;
   z-index: 1;
-  height: 30rem;
   max-width: 100%;
-}
-@media only screen and (orientation: landscape) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) {
-  .futureView canvas {
-    height: 20rem;
-  }
-}
-@media (orientation: portrait) {
-  .futureView canvas {
-    height: 30rem;
-  }
 }
 .futureView #prophecy {
   position: absolute;
@@ -1001,7 +990,7 @@ header {
     height: 30rem;
   }
 }
-@media (min-width: 400px) {
+@media (min-width: 400px) and (orientation: landscape) {
   .futureView #prophecy {
     left: 5%;
     right: 5%;
@@ -1009,7 +998,7 @@ header {
     line-height: 3.6rem;
   }
 }
-@media (min-width: 550px) {
+@media (min-width: 550px) and (orientation: landscape) {
   .futureView #prophecy {
     left: 10%;
     right: 10%;
@@ -1017,7 +1006,7 @@ header {
     line-height: 3.6rem;
   }
 }
-@media (min-width: 750px) {
+@media (min-width: 750px) and (orientation: landscape) {
   .futureView #prophecy {
     font-size: 4rem;
     line-height: 4.5rem;
