@@ -33,7 +33,9 @@ app.use(session({
   secret: 'thearemoreworlds',
   resave: false,
   saveUninitialized: false,
-  maxAge: 432000000,
+  // maxAge: 432000000,
+  // 365 * 24 * 60 * 60 * 1000;
+  maxAge: 60 * 1000;
   store: new MongoStore({ mongooseConnection: mongoose.connection })
 })); // session secret
 app.use(passport.initialize());
