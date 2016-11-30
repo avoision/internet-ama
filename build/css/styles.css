@@ -943,9 +943,7 @@ header {
 .topnav {
   text-align: right;
   list-style: none;
-}
-.topnav ul {
-  margin-bottom: 0;
+  margin-bottom: 1rem;
 }
 .topnav li {
   margin-right: 1.5rem;
