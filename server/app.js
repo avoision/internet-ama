@@ -28,15 +28,22 @@ app.use(bodyParser.json())
 app.set('view engine', 'ejs'); // set up ejs for templating
 
 
+  // maxAge: 432000000,
+  // 365 * 24 * 60 * 60 * 1000;
+
+  // maxAge: Date.now() + (60 * 1000),
+  // ttl: 14 * 24 * 60 * 60 // = 14 days. Default
 
 app.use(session({ 
   secret: 'thearemoreworlds',
   resave: false,
   saveUninitialized: false,
-  // maxAge: 432000000,
-  // 365 * 24 * 60 * 60 * 1000;
-  maxAge: 60 * 1000;
-  store: new MongoStore({ mongooseConnection: mongoose.connection })
+  maxAge: Date.now() + (60 * 60 * 1000),  
+  store: new MongoStore({ 
+    mongooseConnection: mongoose.connection,
+    ttl: 60 // 
+
+  })
 })); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
