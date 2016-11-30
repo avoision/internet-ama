@@ -16,6 +16,10 @@
         colorMinPos = 0,
         colorPos = randomize(0, colorMaxPos)
 
+    console.log("window.innerWidth: " + window.innerWidth)
+    canvas.width = window.innerWidth
+
+
     function setWidthHeight() {
       // console.log('setWidthHeight')
       canvas.width = window.innerWidth
@@ -108,7 +112,7 @@
       timeout = setTimeout(setWidthHeight, 200)
     })
 
-    setWidthHeight()
+    // setWidthHeight()
 
     smoke()
   }

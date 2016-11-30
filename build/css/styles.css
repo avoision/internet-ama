@@ -952,6 +952,7 @@ header {
 @media (orientation: landscape) {
   .topnav li {
     font-size: 1.2rem;
+    display: none;
   }
 }
 .futureView {
@@ -962,6 +963,7 @@ header {
   margin: 0 auto;
   display: block;
   z-index: 1;
+  max-width: 100%;
 }
 @media (orientation: landscape) {
   .futureView canvas {

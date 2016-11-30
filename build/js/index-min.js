@@ -25568,7 +25568,6 @@
 
 	exports['default'] = FutureView;
 	module.exports = exports['default'];
-	/* <Socialnav />*/
 
 /***/ },
 /* 213 */
