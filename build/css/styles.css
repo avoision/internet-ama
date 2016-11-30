@@ -931,6 +931,11 @@ header {
   height: 3rem;
   border-bottom: 2px solid #333;
 }
+@media (orientation: landscape) {
+  header {
+    height: 2rem;
+  }
+}
 .topnav-container {
   width: 100%;
   color: #33ccff;
@@ -940,10 +945,14 @@ header {
   list-style: none;
 }
 .topnav li {
-  display: inline-block;
   margin-right: 1.5rem;
   margin-bottom: 0;
   margin-top: 0.3rem;
+}
+@media (orientation: landscape) {
+  .topnav li {
+    font-size: 1.2rem;
+  }
 }
 .futureView {
   position: relative;
