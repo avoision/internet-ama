@@ -47,7 +47,7 @@ class About extends React.Component {
         <h4>He seems like a cool guy.</h4>
         <p>He's okay, I guess. He builds crap like this all the time. </p>
 
-        <p>If you really liked this project, maybe buy him a beer? My understanding is that he's indifferent about the taste, but just <em>loves</em> the side effects.</p>
+        <p>If you really liked this project, maybe buy him a beer? My understanding is that he enjoys the taste but absolutely <em>loves</em> the side effects.</p>
 
         <div>
           <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
