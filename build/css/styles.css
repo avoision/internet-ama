@@ -933,7 +933,7 @@ header {
 }
 @media (orientation: landscape) {
   header {
-    height: 2rem;
+    height: 0;
   }
 }
 .topnav-container {
