@@ -20,13 +20,13 @@
       // console.log('setWidthHeight')
       canvas.width = window.innerWidth
 
-      if (window.innerHeight > window.innerWidth) {
-       // alert("You are now in portrait");
-        canvas.height = 300
-      } else {
-        // alert("You are now in landscape");
-        canvas.height = 190
-      }
+      // if (window.innerHeight > window.innerWidth) {
+      //  // alert("You are now in portrait");
+      //   canvas.height = 300
+      // } else {
+      //   // alert("You are now in landscape");
+      //   canvas.height = 190
+      // }
 
 
     }

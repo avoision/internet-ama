@@ -954,6 +954,16 @@ header {
   display: block;
   z-index: 1;
 }
+@media (orientation: landscape) {
+  .futureView canvas {
+    height: 20rem;
+  }
+}
+@media (orientation: portrait) {
+  .futureView canvas {
+    height: 30rem;
+  }
+}
 .futureView #prophecy {
   position: absolute;
   left: 5%;
@@ -962,11 +972,20 @@ header {
   line-height: 3.6rem;
   color: #fff;
   z-index: 100;
-  height: 30rem;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
+}
+@media (orientation: landscape) {
+  .futureView #prophecy {
+    height: 20rem;
+  }
+}
+@media (orientation: portrait) {
+  .futureView #prophecy {
+    height: 30rem;
+  }
 }
 @media (min-width: 400px) {
   .futureView #prophecy {
@@ -999,7 +1018,12 @@ header {
 }
 .base {
   border-top: 2px solid #333;
-  padding-top: 5px;
+  padding-top: 10px;
+}
+@media (orientation: landscape) {
+  .base {
+    padding-top: 5px;
+  }
 }
 .button-ask {
   font-size: 1.3rem;
@@ -1012,7 +1036,7 @@ header {
   opacity: 0.3;
 }
 .interface {
-  padding-top: 1rem;
+  padding-top: 0.5rem;
 }
 .askText {
   max-width: 425px;
@@ -1043,6 +1067,11 @@ header {
 }
 .shareLink a:hover {
   text-decoration: underline;
+}
+@media (orientation: landscape) {
+  .shareLink {
+    margin: 0.2rem auto;
+  }
 }
 .sharePrompt {
   color: #ccc;
