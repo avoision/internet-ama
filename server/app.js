@@ -41,7 +41,7 @@ app.use(session({
   maxAge: Date.now() + (60 * 60 * 1000),  
   store: new MongoStore({ 
     mongooseConnection: mongoose.connection,
-    ttl: 60 // 
+    ttl: 60 * 60 // 
 
   })
 })); // session secret
