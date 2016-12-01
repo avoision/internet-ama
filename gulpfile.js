@@ -1,10 +1,12 @@
-var gulp = require('gulp');
-var webpack = require('webpack-stream');
-var less = require('gulp-less');
-var concat = require('gulp-concat');
-var minify = require('gulp-minify-css');
-var merge = require('merge-stream');
-var livereload = require('gulp-livereload');
+var gulp =        require('gulp');
+var webpack =     require('webpack-stream');
+var less =        require('gulp-less');
+var concat =      require('gulp-concat');
+var minify =      require('gulp-minify-css');
+var merge =       require('merge-stream');
+var livereload =  require('gulp-livereload');
+var uglify =      require('gulp-uglify');
+var cleanCSS =     require('gulp-clean-css');
 
 var paths = {
   js: './src/js/**/*.js',
@@ -22,6 +24,7 @@ gulp.task('css-build', function () {
   ])
     .pipe(concat('styles.less'))
     .pipe(less())
+    .pipe(cleanCSS())
     .pipe(gulp.dest('build/css'))
 
 
@@ -49,6 +52,7 @@ gulp.task('css-build', function () {
 gulp.task('webpack-build', function() {
 return gulp.src(paths.js)
   .pipe(webpack( require('./webpack.config.js') ))
+  .pipe(uglify())
   .pipe(gulp.dest('build/js/'))
   .pipe(livereload());
 })
