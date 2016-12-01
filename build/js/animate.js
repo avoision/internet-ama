@@ -2,8 +2,6 @@
   var canvas = document.getElementById('canvas')
 
   if (canvas !== null) {
-
-
     var c = canvas.getContext("2d"),
         radiusGrowthFactor = 3.3,
         alphaDimFactor = 0.009,
@@ -16,10 +14,7 @@
         colorMinPos = 0,
         colorPos = randomize(0, colorMaxPos)
 
-
     function setWidthHeight() {
-      // console.log('setWidthHeight')
-      console.log(window.innerWidth)
       canvas.width = window.innerWidth
       var cHeight = 300
 
@@ -33,10 +28,6 @@
       }
       canvas.height = cHeight
     }
-
-
-
-
 
     // Utility
     function randomize(min, max) {
@@ -77,7 +68,6 @@
       this.radius += radiusGrowthFactor
       this.alpha -= alphaDimFactor
 
-
       c.beginPath()
       // c.arc(x, y, radius, startAngle, endAngle, anticlockwise);
       // ctx.createRadialGradient(x0, y0, r0, x1, y1, r1);
@@ -89,7 +79,6 @@
         delete particlesObj[this.id]
       }
     }
-
 
     function smoke() {
       clearCanvas()
@@ -104,7 +93,6 @@
       window.requestAnimationFrame(smoke)  
     }
 
-
     var timeout
     window.addEventListener('resize', function() {
       clearTimeout(timeout)
@@ -112,8 +100,6 @@
     })
 
     setWidthHeight()
-
     smoke()
   }
-
 })();

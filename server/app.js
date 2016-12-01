@@ -27,13 +27,6 @@ app.use(bodyParser.json())
 
 app.set('view engine', 'ejs'); // set up ejs for templating
 
-
-  // maxAge: 432000000,
-  // 365 * 24 * 60 * 60 * 1000;
-
-  // maxAge: Date.now() + (60 * 1000),
-  // ttl: 14 * 24 * 60 * 60 // = 14 days. Default
-
 app.use(session({ 
   secret: 'thearemoreworlds',
   resave: false,
@@ -42,7 +35,6 @@ app.use(session({
   store: new MongoStore({ 
     mongooseConnection: mongoose.connection,
     ttl: 60 * 60 // 
-
   })
 })); // session secret
 app.use(passport.initialize());
