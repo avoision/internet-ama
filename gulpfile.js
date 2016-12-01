@@ -25,7 +25,6 @@ gulp.task('css-build', function () {
 gulp.task('webpack-build', function() {
 return gulp.src(paths.js)
   .pipe(webpack( require('./webpack.config.js') ))
-  .pipe(uglify())
   .pipe(gulp.dest('build/js/'))
   .pipe(livereload());
 })
