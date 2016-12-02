@@ -19,8 +19,14 @@ module.exports = {
         }),
         new webpack.optimize.UglifyJsPlugin({
           compress:{
-            warnings: true
+            warnings: false
           }
         })
-    ]
+    ],
+    resolve: {
+        alias: {
+            'react': 'react-lite',
+            'react-dom': 'react-lite'
+        }
+    }   
 };

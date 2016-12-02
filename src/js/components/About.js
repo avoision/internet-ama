@@ -10,7 +10,14 @@ class About extends React.Component {
   render() {
     return (
       <div className="about container">
-        <button className="button-primary back" onClick={() => this.goHome()}>Back</button>
+        <button className="button-primary u-pull-left back-button-top" onClick={() => this.goHome()}>Back</button>
+
+        <picture className="aboutImg">
+          <source media="(min-width: 960px)" srcSet="/img/internet-ama-960.jpg" />
+          <source media="(min-width: 640px)" srcSet="/img/internet-ama-640.jpg" />
+          <source media="(min-width: 480px)" srcSet="/img/internet-ama-480.jpg" />
+          <img src="/img/internet-ama-640.jpg" alt="I am the Internet, AMA." />
+        </picture>
 
         <h4>What is this site?</h4>
         <p>I am the Internet. You ask me some questions, and I do my best to provide a reply. Kind of like what's happening right now, although this is a super lazy version of what I do on the main page.</p>
@@ -47,16 +54,14 @@ class About extends React.Component {
         <h4>He seems like a cool guy.</h4>
         <p>He's okay, I guess. He builds crap like this all the time. </p>
 
-        <p>If you really liked this project, maybe buy him a beer? My understanding is that he enjoys the taste but absolutely <em>loves</em> the side effects.</p>
+        <div className="donate-callout">If you really liked this project, maybe <a href="https://www.paypal.me/avoision" target="_blank" rel="noopener noreferrer">buy him a beer?</a> My understanding is that he enjoys the taste but absolutely <u>loves</u> the side effects.       
 
-        <div>
-          <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-            <input type="hidden" name="cmd" value="_s-xclick"></input>
-            <input type="hidden" name="hosted_button_id" value="EBHL4U52EFXRU"></input>
-            <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" name="submit" alt="PayPal - The safer, easier way to pay online!"></input>
-            <img alt="" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1" />
-          </form>
+          <div className="paypal-button">
+            <a href="https://www.paypal.me/avoision" target="_blank" rel="noopener noreferrer"><img src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" border="0" alt="PayPal - The safer, easier way to pay online!" /></a>
+          </div>
         </div>
+
+        <button className="button-primary u-pull-left back-button-bottom" onClick={() => this.goHome()}>Back</button>
       </div>
     )
   }
