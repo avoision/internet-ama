@@ -31,7 +31,7 @@ class FutureView extends React.Component {
     return (
       <div className="futureView">
         <div id="prophecy" className={blurStyles}>{this.props.prediction.text}</div>
-        <Mininav prediction={this.props.prediction} toggleAudio={this.props.toggleAudio} audioOn={this.props.audioOn} />        
+        <Mininav prediction={this.props.prediction} speechSupport={this.props.speechSupport} toggleAudio={this.props.toggleAudio} audioOn={this.props.audioOn} />        
         <canvas id="canvas"></canvas>  
       </div>
     )

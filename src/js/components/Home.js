@@ -24,6 +24,7 @@ class Home extends React.Component {
       clickable: true,
       blurry: false,
       uiDisabled: false,
+      speechSupport: false,
       audioOn: false,
       shareLinks: {
         facebook: '',
@@ -36,6 +37,14 @@ class Home extends React.Component {
         // text: 'in uncharted waters i sail, i know my compass will not fail, i watch the wind, the tide, the sail as i leap into the mouth of the she-whale.'
       }
     }    
+  }
+
+  componentWillMount() {
+    if (typeof speechSynthesis === 'undefined') {
+      return;
+    } else {
+      this.state.speechSupport = true;
+    }
   }
 
   componentDidMount() {
@@ -302,18 +311,20 @@ console.log('\n')
 
   // I am a Queensryche nerd. I can't help myself.
   speakTheWord() {
-    var synth = window.speechSynthesis;
+    if (this.state.speechSupport) {
+      var synth = window.speechSynthesis;
 
-    // Prevent cacophony   
-    if (synth.speaking !== true) {
-      var utterance = new SpeechSynthesisUtterance()      
-      utterance.lang = 'en-US';
-      utterance.volume = 1.0;
-      utterance.rate = 1.0;
-      utterance.pitch = 1.0;
+      // Prevent cacophony   
+      if (synth.speaking !== true) {
+        var utterance = new SpeechSynthesisUtterance()      
+        utterance.lang = 'en-US';
+        utterance.volume = 1.0;
+        utterance.rate = 1.0;
+        utterance.pitch = 1.0;
 
-      utterance.text = this.state.prediction.text;
-      synth.speak(utterance)
+        utterance.text = this.state.prediction.text;
+        synth.speak(utterance)
+      }      
     }
   }
 
@@ -334,7 +345,7 @@ console.log('\n')
         <header>
           <TopNav />
         </header>
-        <FutureView prediction={this.state.prediction} blurry={this.state.blurry} audioOn={this.state.audioOn} toggleAudio={this.toggleAudio} />
+        <FutureView prediction={this.state.prediction} blurry={this.state.blurry} speechSupport={this.state.speechSupport} audioOn={this.state.audioOn} toggleAudio={this.toggleAudio} />
 
         <div className="base">
           <ShareLink url={this.state.shareLinks.url} />
