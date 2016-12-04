@@ -18,14 +18,39 @@ class Home extends React.Component {
     this.overrideProphecy = this.overrideProphecy.bind(this)
     this.toggleAudio = this.toggleAudio.bind(this)
     this.speakTheWord = this.speakTheWord.bind(this)
+    this.populateVoiceList = this.populateVoiceList.bind(this)
+
+
+    if (typeof speechSynthesis === 'undefined') {
+      this.speechSupport = false
+    } else {
+      this.speechSupport = true
+      this.synth = window.speechSynthesis
+      this.availableVoices = []
+      this.curatedVoices = []
+      this.curatedListOfVoices = ['Alex', 'Bruce', 'Fred', 'Ralph', 'Samantha', 'Trinoids', 'Vicki', 'Victoria', 'Zarvox', 'Google US English']
+    }
+
+    // Check LS for audio preference
+    var audioPreference = localStorage.getItem('audioPreference'),
+        audioOn = ''
+
+    // If no LS var found, set to true
+    if (audioPreference === null) {
+      audioOn = true
+      localStorage.setItem('audioPreference', true);
+    } else {
+      // LS found, set to existing preference
+      audioOn = (audioPreference === 'true')
+    }
 
     this.state = {
       isShared: false,
       clickable: true,
       blurry: false,
       uiDisabled: false,
-      speechSupport: false,
-      audioOn: false,
+      speechSupport: this.speechSupport,
+      audioOn: audioOn,
       shareLinks: {
         facebook: '',
         url: ''
@@ -39,11 +64,30 @@ class Home extends React.Component {
     }    
   }
 
+  populateVoiceList() {
+    this.availableVoices = this.synth.getVoices()
+
+    var that = this;
+    this.curatedVoices = this.availableVoices.filter(function(voice) {
+      var voiceFound = false
+      for (var i = 0; i < that.curatedListOfVoices.length; i++) {
+        if (voice.name === that.curatedListOfVoices[i]) {
+          voiceFound = true
+          break;
+        }
+      }
+
+      if (voiceFound) { return voice }
+    })
+  }
+
   componentWillMount() {
-    if (typeof speechSynthesis === 'undefined') {
-      return;
+    // Only perform this for Chrome
+    if (speechSynthesis.onvoiceschanged !== undefined) {
+      speechSynthesis.onvoiceschanged = this.populateVoiceList;
+      // All others, direct assignment
     } else {
-      this.state.speechSupport = true;
+      this.populateVoiceList()
     }
   }
 
@@ -67,6 +111,7 @@ class Home extends React.Component {
           uiDisabled = true
 
       var audioOn = (sharedParams.audioOn) ? true : false
+      localStorage.setItem('audioPreference', audioOn);
 
       this.setState({
         clickable: clickable,
@@ -75,7 +120,13 @@ class Home extends React.Component {
         audioOn: audioOn
       })
 
+      
+
       this.getSharedData(sharedParams)
+    }
+
+    if ((this.props.pathname === "/")  && (this.state.audioOn)) {
+      this.speakTheWord()
     }
   }
 
@@ -141,7 +192,7 @@ class Home extends React.Component {
     })
 
     if (this.state.audioOn) {
-      this.speakTheWord()      
+      this.speakTheWord()
     }
 
     this.setClick(true)
@@ -197,8 +248,8 @@ class Home extends React.Component {
         url: ''
       }      
     }, function() {
-      if (this.state.audioOn) {
-        this.speakTheWord()      
+        if (this.state.audioOn) {      
+        this.speakTheWord()
       }
     })
   }
@@ -268,7 +319,7 @@ console.log('\n')
 
     if (this.state.audioOn) {
       this.speakTheWord()      
-    } 
+    }
 
     this.setClick(true)
     this.enableUI()
@@ -277,7 +328,16 @@ console.log('\n')
 
   toggleAudio() {
     var audioOn = this.state.audioOn
+console.log("From state: " + audioOn)
     audioOn = !audioOn
+console.log("Opposite: " + audioOn)
+   
+
+    if (audioOn) {
+      this.speakTheWord()
+    }
+
+    localStorage.setItem('audioPreference', audioOn);
 
     var currentLink = this.state.shareLinks.url
     // 127.0.0.1:3000/share?id=801587642714439682&f=1&c=33&a=1
@@ -301,29 +361,33 @@ console.log('\n')
         audioOn: audioOn
       })
     }
-
-
-
-    if (audioOn) {
-      this.speakTheWord()
-    }
   }
 
   // I am a Queensryche nerd. I can't help myself.
   speakTheWord() {
-    if (this.state.speechSupport) {
-      var synth = window.speechSynthesis;
+    var randomVoiceNum = -1
+
+    if (this.state.speechSupport)  {
+      if (this.availableVoices.length > 0) {
+        randomVoiceNum = Math.floor(Math.random() * this.curatedVoices.length)
+      }
+
 
       // Prevent cacophony   
-      if (synth.speaking !== true) {
+      if (this.synth.speaking !== true) {
         var utterance = new SpeechSynthesisUtterance()      
         utterance.lang = 'en-US';
         utterance.volume = 1.0;
         utterance.rate = 1.0;
         utterance.pitch = 1.0;
 
+        if (randomVoiceNum !== -1) {
+          utterance.voice = this.curatedVoices[randomVoiceNum]
+          console.log(this.curatedVoices[randomVoiceNum])
+        }
+
         utterance.text = this.state.prediction.text;
-        synth.speak(utterance)
+        this.synth.speak(utterance)
       }      
     }
   }
