@@ -3,7 +3,7 @@
 
   if (canvas !== null) {
     var c = canvas.getContext("2d"),
-        radiusGrowthFactor = 3.3,
+        radiusGrowthFactor = 4.3,
         alphaDimFactor = 0.009,
         colorFactor = 0.00005,
 
