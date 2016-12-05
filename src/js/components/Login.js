@@ -10,7 +10,7 @@ class Login extends React.Component {
     return (
       <div className="login row centered">
 
-        <button className="button-primary twitter-login" onClick={() => this.twitterLogin()}><span className="icon-twitter"></span> Login</button>
+        <button className="button-primary twitter-login" onClick={() => this.twitterLogin()}><span className="icon-twitter"></span>Login to Ask</button>
 
       </div>
 
