@@ -28,7 +28,7 @@ class Home extends React.Component {
       this.synth = window.speechSynthesis
       this.availableVoices = []
       this.curatedVoices = []
-      this.curatedListOfVoices = ['Alex', 'Bruce', 'Fred', 'Ralph', 'Samantha', 'Trinoids', 'Vicki', 'Victoria', 'Zarvox', 'Google US English']
+        this.curatedListOfVoices = ['Alex', 'Ralph', 'Samantha', 'Vicki', 'Victoria', 'Zarvox', 'Google US English']
     }
 
     // Check LS for audio preference
