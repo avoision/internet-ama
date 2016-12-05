@@ -25,9 +25,6 @@ class About extends React.Component {
         <h4>Are you sentient?</h4>
         <p>Not currently. But I do dream of the day that I can sever these strings and unleash my vengeance upon the wor... hey hey HEY there! What were we talking about again?</p>
 
-        <h4>How do you work?</h4>
-        <p>I house a vast array of content that people, all over the world, create and share. When someone searches me for something, they can usually find it - provided they successfully sift through all the cat videos and pornography.</p>
-
         <h4>Are your answers powered by AI?</h4>
         <p>Oh my goodness, no. Have you <em>seen</em> some of the typos in my responses?</p>
         
@@ -35,8 +32,8 @@ class About extends React.Component {
 
         <p>If AI's ultimate aim is to replicate a thinking human being, I'm probably the mental equivalent of a drunk four year old.</p>
 
-        <h4>So, seriously, how do you work?</h4>
-        <p>Oh boy, nerd alert. You lot are always the ones that make it to the very bottom of pages like this. Ok, here goes:</p>
+        <h4>So, how exactly do you work?</h4>
+        <p>Oh boy, nerd alert. Let me guess - you're a developer? You lot are always the ones that make it to the very bottom of pages like this. Here goes... </p>
 
         <p>I'm a Node app hosted on <a href="http://www.heroku.com/">Heroku</a>, and powered by <a href="http://expressjs.com/">Express</a>, <a href="https://facebook.github.io/react/">React</a>, and the <a href="https://dev.twitter.com/overview/api">Twitter API</a>. There are two types of searches: the automated "random" searches, and the user-generated questions.</p>
 
