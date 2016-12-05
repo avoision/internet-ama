@@ -524,7 +524,7 @@ app.post('/fortune', function(req, res) {
     tweet = _.replace(tweet, /(lmao|lmfao|omg|omfg|smh|smdh|lol|rofl)*/gi, "")
 
     // Removes numbering: (1/4), 18. 
-    tweet = _.replace(tweet, /(\(?[0-9]+\/[0-9]+\)?)|([0-9]+\.?\ ?)/, "")
+    tweet = _.replace(tweet, /(\(?[0-9]+\/[0-9]+\)?)|([0-9]+\.?\)?\ ?)/, "")
 
     // Removes emojis
     tweet = emojiStrip(tweet)
