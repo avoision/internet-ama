@@ -5,6 +5,7 @@ var async       = require('async')
 var Twit        = require('twit')
 var rita        = require('rita');
 var wordfilter  = require('wordfilter')
+var emojiStrip  = require('emoji-strip')
 
 var User        = require('../models/user');
 var Session     = require('../models/session');
@@ -524,6 +525,9 @@ app.post('/fortune', function(req, res) {
 
     // Removes numbering: (1/4), 18. 
     tweet = _.replace(tweet, /(\(?[0-9]+\/[0-9]+\)?)|([0-9]+\.?\ ?)/, "")
+
+    // Removes emojis
+    tweet = emojiStrip(tweet)
 
     return tweet
   }
