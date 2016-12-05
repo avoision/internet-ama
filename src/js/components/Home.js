@@ -329,10 +329,7 @@ console.log('\n')
 
   toggleAudio() {
     var audioOn = this.state.audioOn
-console.log("From state: " + audioOn)
     audioOn = !audioOn
-console.log("Opposite: " + audioOn)
-   
 
     if (audioOn) {
       this.speakTheWord()

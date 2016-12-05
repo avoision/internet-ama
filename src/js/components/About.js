@@ -32,7 +32,12 @@ class About extends React.Component {
 
         <p>If AI's ultimate aim is to replicate a thinking human being, I'm probably the mental equivalent of a drunk four year old.</p>
 
-        <h4>So, how exactly do you work?</h4>
+        <h4>Why do I have to log in with Twitter?</h4>
+        <p>I'm storing all your search queries, and need to associate them wtih your Twitter user name so that I can make fun of you later. That, and I plan on showing you ads for ink-jet cartridges in the near future.</p>
+
+        <p>The real reason: <a href="https://dev.twitter.com/rest/public/rate-limiting">rate limiting</a> from Twitter.</p> 
+
+        <h4>Interesting. So how, exactly, do you work?</h4>
         <p>Oh boy, nerd alert. Let me guess - you're a developer? You lot are always the ones that make it to the very bottom of pages like this. Here goes... </p>
 
         <p>I'm a Node app hosted on <a href="http://www.heroku.com/">Heroku</a>, and powered by <a href="http://expressjs.com/">Express</a>, <a href="https://facebook.github.io/react/">React</a>, and the <a href="https://dev.twitter.com/overview/api">Twitter API</a>. There are two types of searches: the automated "random" searches, and the user-generated questions.</p>
