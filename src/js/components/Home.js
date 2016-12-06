@@ -20,7 +20,6 @@ class Home extends React.Component {
     this.speakTheWord = this.speakTheWord.bind(this)
     this.populateVoiceList = this.populateVoiceList.bind(this)
 
-
     if (typeof speechSynthesis === 'undefined') {
       this.speechSupport = false
     } else {
@@ -28,7 +27,16 @@ class Home extends React.Component {
       this.synth = window.speechSynthesis
       this.availableVoices = []
       this.curatedVoices = []
-        this.curatedListOfVoices = ['Alex', 'Ralph', 'Samantha', 'Vicki', 'Victoria', 'Zarvox', 'Google US English']
+
+      // Chrome Desktop
+      this.chromeVoices = ['Alex', 'Ralph', 'Samantha', 'Vicki', 'Victoria', 'Zarvox', 'Google US English']
+
+      // Placeholder. 
+      // Safari voices handled via General Phone Settings. User needs to download and install (example: Alex voice = 800MB). In the future, maybe we combine this array with chromeVoices.
+      // http://stackoverflow.com/questions/28948562/web-speech-api-consistently-get-the-supported-speech-synthesis-voices-on-ios-sa
+      this.safariMobileVoices = ["Catherine", "Gordon", "Karen", "Arthur", "Daniel", "Martha", "Moira", "Aaron (Enhanced)", "Nicky (Enhanced)", "Samantha (Enhanced)", "Aaron", "Fred", "Nicky", "Samantha", "Tessa"]  
+
+      this.curatedListOfVoices = this.chromeVoices
     }
 
     // Check LS for audio preference
@@ -67,13 +75,16 @@ class Home extends React.Component {
   populateVoiceList() {
     this.availableVoices = this.synth.getVoices()
 
+    var englishVoices = this.availableVoices.filter(function(voice) {
+      if (voice.lang === 'en-US') { return voice }
+    })
+
     var that = this;
-    this.curatedVoices = this.availableVoices.filter(function(voice) {
+    this.curatedVoices = englishVoices.filter(function(voice) {
       var voiceFound = false
       for (var i = 0; i < that.curatedListOfVoices.length; i++) {
         if (voice.name === that.curatedListOfVoices[i]) {
           voiceFound = true
-          break;
         }
       }
 
@@ -277,9 +288,9 @@ class Home extends React.Component {
           cutPhrasePos = randomPost.cutPhrasePos,
           text
 
-console.log(randomPost.tweetOriginal)
-console.log(randomPost.tweetText)
-console.log('\n')
+// console.log(randomPost.tweetOriginal)
+// console.log(randomPost.tweetText)
+// console.log('\n')
 
       // Can we use the full tweet, unaltered?
       if (randomPost.canUseFull) {
@@ -370,7 +381,6 @@ console.log('\n')
         randomVoiceNum = Math.floor(Math.random() * this.curatedVoices.length)
       }
 
-
       // Prevent cacophony   
       if (this.synth.speaking !== true) {
         var utterance = new SpeechSynthesisUtterance()      
@@ -381,9 +391,7 @@ console.log('\n')
 
         if (randomVoiceNum !== -1) {
           utterance.voice = this.curatedVoices[randomVoiceNum]
-          console.log(this.curatedVoices[randomVoiceNum])
         }
-
         utterance.text = this.state.prediction.text;
         this.synth.speak(utterance)
       }      
@@ -400,8 +408,6 @@ console.log('\n')
       userControls = <Login />
     }
 
-    
-
     return (
       <div>
         <header>
@@ -413,12 +419,10 @@ console.log('\n')
           <ShareLink url={this.state.shareLinks.url} />
           {userControls} 
         </div>
-
       </div>
     )
   }
 }
 
 export default Home
-
 

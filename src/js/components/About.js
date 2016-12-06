@@ -25,15 +25,19 @@ class About extends React.Component {
         <h4>Are you sentient?</h4>
         <p>Not currently. But I do dream of the day that I can sever these strings and unleash my vengeance upon the wor... hey hey HEY there! What were we talking about again?</p>
 
+        <h4>You suck. You don't really answer any of my questions.</h4>
+        <p>Well, seeing as how I'm powered by everyone who's online (you included), it's not really me that sucks. It's more like <em>you</em> suck, amirite?</p>
+        <p>Seriously though, I'm sorry my answers aren't more accurate. If you'd like you can always <a href="http://whywouldyouclickthat.com/">file an official complaint</a>, and we can incorporate your input into our deep-learning algorithms.</p>
+
         <h4>Are your answers powered by AI?</h4>
         <p>Oh my goodness, no. Have you <em>seen</em> some of the typos in my responses?</p>
         
         <p>Incredibly smart people are working with neural networks and actual AI, whereas I'm just the end result of some developer taking a string of text and juggling it in the air.</p>
 
-        <p>If AI's ultimate aim is to replicate a thinking human being, I'm probably the mental equivalent of a drunk four year old.</p>
+        <p>AI's ultimate aim is to replicate a thinking human being. Think of me as the mental equivalent of a drunk four year old. And not with any fancy liquor, I'm talking drunk off the cheap stuff.</p>
 
         <h4>Why do I have to log in with Twitter?</h4>
-        <p>I'm storing all your search queries, and need to associate them wtih your Twitter user name so that I can make fun of you later. That, and I plan on showing you ads for ink-jet cartridges in the near future.</p>
+        <p>I'm storing all your search queries, and need to associate them wtih your Twitter username so that I can make fun of you later. That, and I plan on showing you ads for ink-jet cartridges in the near future.</p>
 
         <p>The real reason: <a href="https://dev.twitter.com/rest/public/rate-limiting">rate limiting</a> from Twitter.</p> 
 
