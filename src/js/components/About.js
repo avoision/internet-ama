@@ -34,7 +34,7 @@ class About extends React.Component {
         
         <p>Incredibly smart people are working with neural networks and actual AI, whereas I'm just the end result of some developer taking a string of text and juggling it in the air.</p>
 
-        <p>AI's ultimate aim is to replicate a thinking human being. Think of me as the mental equivalent of a drunk four year old. And not with any fancy liquor, I'm talking drunk off the cheap stuff.</p>
+        <p>AI's ultimate aim is to replicate a thinking human being. Consider me the mental equivalent of a drunk four year old. And not with any fancy liquor, I'm talking drunk off the cheap stuff.</p>
 
         <h4>Why do I have to log in with Twitter?</h4>
         <p>I'm storing all your search queries, and need to associate them wtih your Twitter username so that I can make fun of you later. That, and I plan on showing you ads for ink-jet cartridges in the near future.</p>

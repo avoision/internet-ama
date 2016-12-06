@@ -70,6 +70,7 @@ app.post('/fortune', function(req, res) {
     'in the future you',
     'someone has',
     'someone will',
+    'you are'
   ]
 
   randomPhrase = function() {
@@ -528,6 +529,9 @@ app.post('/fortune', function(req, res) {
 
     // Removes emojis
     tweet = emojiStrip(tweet)
+
+    // Removes any non-alpha-num at start, up until first letter.
+    tweet = _.replace(tweet, /^[\W_]+/, "")
 
     return tweet
   }

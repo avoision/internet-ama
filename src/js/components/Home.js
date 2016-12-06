@@ -288,9 +288,9 @@ class Home extends React.Component {
           cutPhrasePos = randomPost.cutPhrasePos,
           text
 
-// console.log(randomPost.tweetOriginal)
-// console.log(randomPost.tweetText)
-// console.log('\n')
+console.log(randomPost.tweetOriginal)
+console.log(randomPost.tweetText)
+console.log('\n')
 
       // Can we use the full tweet, unaltered?
       if (randomPost.canUseFull) {
