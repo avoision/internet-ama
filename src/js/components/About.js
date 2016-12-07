@@ -1,11 +1,9 @@
 import React from 'react';
 
 class About extends React.Component {
-
   goHome() {
     window.location = "/"
   }
-
 
   render() {
     return (

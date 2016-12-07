@@ -14,7 +14,6 @@ class ShareLink extends React.Component {
     return facebookLink
   }
 
-
   render() {
     var shareStyle = "shareLink hidden"
     if (this.props.url !== "") {
@@ -30,8 +29,4 @@ class ShareLink extends React.Component {
 }
 
 export default ShareLink
-
-
-
-
 

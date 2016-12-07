@@ -13,9 +13,6 @@ class Login extends React.Component {
         <button className="button-primary twitter-login" onClick={() => this.twitterLogin()}><span className="icon-twitter"></span>Login to Ask</button>
 
       </div>
-
-
-
     )
   }
 }

@@ -13,8 +13,6 @@ class Mininav extends React.Component {
     }
   }
 
-
-
   render() {
     var audioIconLi = '',
         audioIconClass = ''
@@ -40,7 +38,6 @@ class Mininav extends React.Component {
           <li><span className={authorIconClass} onClick={this.goToOriginal}></span></li>
 
           {audioIconLi}
-
       
         </ul>
       </div>

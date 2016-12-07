@@ -3,7 +3,6 @@ import { Link } from 'react-router'
 
 class TopNav extends React.Component {
 
-
   render() {
     return (
       <div className="topnav-container">

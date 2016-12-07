@@ -1,7 +1,5 @@
 import React from 'react';
 
-
-
 class Socialnav extends React.Component {
   constructor() {
     super();
@@ -15,14 +13,7 @@ class Socialnav extends React.Component {
     }
   }
 
-
-
   render() {
-    // var audioIconClass = "icon-volume-off"
-    // if (this.props.audioOn) {
-    //   audioIconClass = "icon-volume-up lit"
-    // }
-
     return (
       <div className="socialnav">
         <ul className="nav-items">

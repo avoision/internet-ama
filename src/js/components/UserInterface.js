@@ -35,9 +35,6 @@ class UserInterface extends React.Component {
     return randomChiding
   }
 
-
-
-
   getFortune(responseType) {
     // responseType = 'fortune', 'question'
     if (responseType === 'question') {
